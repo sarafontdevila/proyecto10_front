@@ -1,9 +1,7 @@
 import './Home.css'
 
 export const Home =() => {
-  const app= document.querySelector("#app")
-
-  app.innerHTML = "Estamos en HOME"
-
+  const main = document.querySelector("main")
+  main.innerHTML = "<h1>Estamos en Home</h1>"
 }
 
