@@ -35,6 +35,42 @@ const Login = (elementoPadre) => {
   form.addEventListener("submit", () => submit(inputEmail.value, inputPassword.value, form));
   }
 
-  const submit = (email, password) => console.log(email, password)
+  const submit = async (email, password, form) => {
+
+    const objetoFinal = JSON.stringify({
+      email, 
+      password
+    })
+    
+    const opciones = {
+      method: "POST",
+      body: objetoFinal,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    const res = await fetch("http://localhost:3000/api/v1/users/login", opciones)
+
+    if (res.status === 400) {
+      const errorLogin = document.createElement("p")
+      errorLogin.classList.add("error")
+      errorLogin.textContent = "Credenciales incorrectas"
+      errorLogin.style.color = "red"
+      form.append(errorLogin)
+      return
+    }
+    const errorLogin = document.querySelector(".error")
+    if (errorLogin) {
+      errorLogin.remove()
+    }
+    const respuestaFinal = await res.json()
+
+    localStorage.setItem("token", respuestaFinal.token)
+    Home()
+    
+    }
+
+  /*http://localhost:3000/api/v1/users/login */
   
 
