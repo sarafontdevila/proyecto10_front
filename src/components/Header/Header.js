@@ -22,7 +22,7 @@ export const Header = () => {
     const a = document.createElement('a')
     a.href = '#'
 
-    if (route.texto === 'Login' && localStorage.getItem(token)) {
+    if (route.texto === 'Login' && localStorage.getItem("token")) {
       a.textContent = 'Logout'
       a.addEventListener('click', () => {
         localStorage.clear()
