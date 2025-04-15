@@ -67,7 +67,10 @@ const Login = (elementoPadre) => {
     const respuestaFinal = await res.json()
 
     localStorage.setItem("token", respuestaFinal.token)
+    localStorage.setItem("user", JSON.stringify(respuestaFinal.user));
+
     Home()
+    Header()
     
     }
 
