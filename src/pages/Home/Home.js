@@ -8,10 +8,12 @@ export const Home = async() => {
   const eventos = await res.json()
 
   pintarEventos(eventos, main)
+}
 
-  const pintarEventos = (eventos, elementoPadre) => {
+  export const pintarEventos = (eventos, elementoPadre) => {
     const divEventos = document.createElement("div")
     divEventos.className = "eventos"
+
     for (const evento of eventos) {
       const divEvento = document.createElement("div")
       const nombre = document.createElement("h3")
@@ -20,22 +22,65 @@ export const Home = async() => {
       const precio = document.createElement("p")
       const lugar = document.createElement("p")
       const imagen = document.createElement("img")
+      
       const asistentes = document.createElement("p")
+      const asistir = document.createElement("button")
+      asistir.className = "btn-quieroir";
 
-      titulo.textContent = evento.nombre
+      asistir.addEventListener("click", () => addPreferido(evento._id))
+
+      const user = JSON.parse(localStorage.getItem("user"))
+
+      if(user?.preferidos?.includes(evento._id)){
+        asistir.textContent = 'Ya voy'
+      }else {
+        asistir.textContent = 'Quiero ir'}
+
+
+      divEvento.className = "evento"
+      nombre.textContent = evento.nombre
       imagen.src = evento.imagen
       descripcion.textContent = evento.descripcion
       fecha.textContent = evento.fecha
-      precio.textContent = "${evento.precio}€"
+      precio.textContent = '${evento.precio}€'
       lugar.textContent = evento.lugar
+      asistentes.textContent = 'Asistentes: ${evento.asistentes}'
+      asistir.textContent = 'Quiero ir'
+    
 
-      divEvento.append(titulo, descripcion, fecha, precio, lugar, imagen)
+      divEvento.append(nombre,imagen, fecha, descripcion, lugar, precio, asistentes, asistir)
       divEventos.append(divEvento)
-      elementoPadre.append(divEvento)
-      console.log(evento)
-    }
-  }
+    
+      elementoPadre.append(divEventos)
+    }}
 
+    const addPreferido = async (idEvento) => {
+
+      const user = JSON.parse(localStorage.getItem("user"))
+
+      user.preferidos = [...user.preferidos, idEvento]
+
+      const objetoFinal = JSON.stringify({
+        preferidos: [idEvento]
+      })
+
+      const opciones = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: objetoFinal
+      }
+      const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, 
+        opciones)
+    
+    const respuesta = await res.json()
+
+    localStorage.setItem("user", JSON.stringify(user))
+    Home()
+  }
   
-}
+  
+
 

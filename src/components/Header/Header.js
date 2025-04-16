@@ -1,3 +1,4 @@
+import { Preferidos } from '../../pages/Preferidos/Preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import './Header.css'
@@ -8,9 +9,14 @@ const routes = [
     funcion: Home
   },
   {
+    texto: 'Preferidos',
+    funcion: Preferidos
+  },
+  {
     texto: 'Login',
     funcion: LoginRegister
   }
+ 
 ]
 
 export const Header = () => {
@@ -29,10 +35,15 @@ export const Header = () => {
         Header()
       })
     } else {
+      if(!localStorage.getItem ("token") && route.texto === "Preferidos"){
+
+      }else {
+
       a.textContent = route.texto
-      a.addEventListener('click', route.funcion)
+      a.addEventListener('click', route.funcion)}
     }
     nav.append(a)
   }
   header.append(nav)
 }
+
