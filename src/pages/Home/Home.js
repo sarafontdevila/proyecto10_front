@@ -48,9 +48,9 @@ export const Home = async() => {
       asistir.textContent = 'Quiero ir'
     
 
-      divEvento.append(nombre,imagen, fecha, descripcion, lugar, precio, asistentes, asistir)
+      divEvento.append(imagen, nombre, descripcion, fecha,lugar, precio,asistentes, asistir)
       divEventos.append(divEvento)
-    
+
       elementoPadre.append(divEventos)
     }}
 
