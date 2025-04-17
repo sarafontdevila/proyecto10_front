@@ -9,13 +9,19 @@ const routes = [
     funcion: Home
   },
   {
-    texto: 'Preferidos',
+    texto: 'Mis Eventos',
     funcion: Preferidos
   },
+  /*{
+    texto: 'Para Admin',
+    funcion: LoginRegister
+  },*/
   {
     texto: 'Login',
     funcion: LoginRegister
-  }
+  },
+  
+
  
 ]
 

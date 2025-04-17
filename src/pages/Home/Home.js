@@ -41,8 +41,13 @@ export const Home = async() => {
       nombre.textContent = evento.nombre
       imagen.src = evento.imagen
       descripcion.textContent = evento.descripcion
-      fecha.textContent = evento.fecha
-      precio.textContent = '${evento.precio}€'
+      fecha.textContent = new Date(evento.fecha).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+
+      precio.textContent = `${evento.precio}€`
       lugar.textContent = evento.lugar
       asistentes.textContent = 'Asistentes: ${evento.asistentes}'
       asistir.textContent = 'Quiero ir'
