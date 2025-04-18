@@ -7,7 +7,7 @@ export const Preferidos = async() => {
 
   const user = JSON.parse(localStorage.getItem("user"))
 
-  const res = await fetch("http://localhost:3000/api/v1/users/${user._id}")
+  const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`)
 
   const usuario = await res.json()
 

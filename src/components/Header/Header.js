@@ -1,4 +1,4 @@
-import { Preferidos } from '../../pages/Preferidos/Preferidos'
+import { Preferidos } from '../../pages/MisEventos/Preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import './Header.css'
@@ -19,10 +19,7 @@ const routes = [
   {
     texto: 'Login',
     funcion: LoginRegister
-  },
-  
-
- 
+  }
 ]
 
 export const Header = () => {
@@ -34,22 +31,20 @@ export const Header = () => {
     const a = document.createElement('a')
     a.href = '#'
 
-    if (route.texto === 'Login' && localStorage.getItem("token")) {
+    if (route.texto === 'Login' && localStorage.getItem('token')) {
       a.textContent = 'Logout'
       a.addEventListener('click', () => {
         localStorage.clear()
         Header()
       })
     } else {
-      if(!localStorage.getItem ("token") && route.texto === "Preferidos"){
-
-      }else {
-
-      a.textContent = route.texto
-      a.addEventListener('click', route.funcion)}
+      if (!localStorage.getItem('token') && route.texto === 'Preferidos') {
+      } else {
+        a.textContent = route.texto
+        a.addEventListener('click', route.funcion)
+      }
     }
     nav.append(a)
   }
   header.append(nav)
 }
-

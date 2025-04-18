@@ -1,79 +1,172 @@
 import { Header } from '../../components/Header/Header'
 import { Home } from '../Home/Home'
-import "./LoginRegister.css"
+import { Preferidos } from '../MisEventos/Preferidos'
+import './LoginRegister.css'
 
-export const LoginRegister =() => {
-  const main= document.querySelector("main")
-  main.innerHTML = "";
+export const LoginRegister = () => {
+  const main = document.querySelector('main')
+  main.innerHTML = ''
 
-  const loginDiv = document.createElement("div")
+  const loginDiv = document.createElement('div')
 
   Login(loginDiv)
 
-  loginDiv.id = "login"
+  loginDiv.id = 'login'
 
   main.append(loginDiv)
 }
 
-const Login = (elementoPadre) => { 
-  const form = document.createElement("form")
+const Login = (elementoPadre) => {
+  const form = document.createElement('form')
 
-  const inputEmail = document.createElement("input")
-  const inputPassword = document.createElement("input")
-  const button = document.createElement("button")
+  const inputEmail = document.createElement('input')
+  const inputPassword = document.createElement('input')
+  const button = document.createElement('button')
 
-  inputPassword.type = "password"
-  inputEmail.placeholder = "Email"
-  inputPassword.placeholder = "Contraseña"
-  button.textContent = "Login"
+  const statusMessage = document.createElement('p')
+  statusMessage.classList.add('status-message')
+  statusMessage.style.display = 'none'
+
+  inputPassword.type = 'password'
+  inputEmail.placeholder = 'Email'
+  inputPassword.placeholder = 'Contraseña'
+  button.textContent = 'Entrar'
 
   elementoPadre.append(form)
   form.append(inputEmail)
   form.append(inputPassword)
   form.append(button)
+  form.append(statusMessage)
 
-  form.addEventListener("submit", () => submit(inputEmail.value, inputPassword.value, form));
-  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    submit(inputEmail.value, inputPassword.value, form, statusMessage)
+  })
+}
 
-  const submit = async (email, password, form) => {
-
-    const objetoFinal = JSON.stringify({
-      email, 
-      password
-    })
-    
-    const opciones = {
-      method: "POST",
-      body: objetoFinal,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-
-    const res = await fetch("http://localhost:3000/api/v1/users/login", opciones)
-
-    if (res.status === 400) {
-      const errorLogin = document.createElement("p")
-      errorLogin.classList.add("error")
-      errorLogin.textContent = "Credenciales incorrectas"
-      errorLogin.style.color = "red"
-      form.append(errorLogin)
-      return
-    }
-    const errorLogin = document.querySelector(".error")
+const submit = async (email, password, form, statusMessage) => {
+  try {
+    const errorLogin = document.querySelector('.error')
     if (errorLogin) {
       errorLogin.remove()
     }
-    const respuestaFinal = await res.json()
 
-    localStorage.setItem("token", respuestaFinal.token)
-    localStorage.setItem("user", JSON.stringify(respuestaFinal.user));
-
-    Home()
-    Header()
-    
+    const userData = {
+      email,
+      password,
+      preferidos: []
     }
 
-  /*http://localhost:3000/api/v1/users/login */
-  
+    let loginSuccess = false
+    let userData_res = null
 
+    try {
+      const loginOptions = {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      const loginRes = await fetch(
+        'http://localhost:3000/api/v1/users/login',
+        loginOptions
+      )
+
+      if (loginRes.ok) {
+        userData_res = await loginRes.json()
+        loginSuccess = true
+      } else {
+        loginSuccess = false
+      }
+    } catch (error) {
+      console.error('Error en el intento de login:', error)
+    }
+
+    if (loginSuccess) {
+      localStorage.setItem('token', userData_res.token)
+      localStorage.setItem('user', JSON.stringify(userData_res.user))
+
+      Home()
+      Header()
+      Preferidos()
+    } else {
+      try {
+        const registerOptions = {
+          method: 'POST',
+          body: JSON.stringify(userData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+
+        const registerRes = await fetch(
+          'http://localhost:3000/api/v1/users/register',
+          registerOptions
+        )
+
+        if (registerRes.ok) {
+          const registerData = await registerRes.json()
+
+          form.innerHTML = ''
+
+          const successDiv = document.createElement('div')
+          successDiv.classList.add('success-container')
+
+          const successMessage = document.createElement('p')
+          successMessage.classList.add('success-message')
+          successMessage.textContent =
+            '¡Bienvenido ya estás registrado correctamente!'
+          successMessage.style.color = 'green'
+          successMessage.style.fontSize = '18px'
+          successMessage.style.marginBottom = '20px'
+
+          const continueButton = document.createElement('button')
+          continueButton.textContent = 'Continuar'
+          continueButton.style.backgroundColor = '#4CAF50'
+          continueButton.style.color = 'white'
+          continueButton.style.padding = '10px 20px'
+          continueButton.style.border = 'none'
+          continueButton.style.borderRadius = '4px'
+          continueButton.style.cursor = 'pointer'
+
+          successDiv.appendChild(successMessage)
+          successDiv.appendChild(continueButton)
+          form.appendChild(successDiv)
+
+          localStorage.setItem('token', registerData.token)
+          localStorage.setItem('user', JSON.stringify(registerData.user))
+
+          continueButton.addEventListener('click', () => {
+            const main = document.querySelector('main')
+            main.innerHTML = ''
+            Home()
+            Header()
+            Preferidos()
+          })
+        } else {
+          const errorRegister = document.createElement('p')
+          errorRegister.classList.add('error')
+          errorRegister.textContent = 'Error al registrar usuario'
+          errorRegister.style.color = 'red'
+          form.append(errorRegister)
+        }
+      } catch (registerError) {
+        console.error('Error en el intento de registro:', registerError)
+        const errorMsg = document.createElement('p')
+        errorMsg.classList.add('error')
+        errorMsg.textContent = 'Error de conexión al registrar'
+        errorMsg.style.color = 'red'
+        form.append(errorMsg)
+      }
+    }
+  } catch (error) {
+    console.error('Error general:', error)
+    const errorGeneral = document.createElement('p')
+    errorGeneral.classList.add('error')
+    errorGeneral.textContent = 'Error de conexión'
+    errorGeneral.style.color = 'red'
+    form.append(errorGeneral)
+  }
+}

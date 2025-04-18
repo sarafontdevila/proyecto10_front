@@ -4,7 +4,7 @@ import './Home.css'
 export const Home = async() => {
   const main = document.querySelector("main")
   main.innerHTML = ""
-  const res = await fetch("http://localhost:3000/api/v1/eventos")
+  const res = await fetch(`http://localhost:3000/api/v1/eventos`)
   const eventos = await res.json()
 
   pintarEventos(eventos, main)
@@ -32,9 +32,9 @@ export const Home = async() => {
       const user = JSON.parse(localStorage.getItem("user"))
 
       if(user?.preferidos?.includes(evento._id)){
-        asistir.textContent = 'Ya voy'
+        asistir.textContent = 'En mi lista'
       }else {
-        asistir.textContent = 'Quiero ir'}
+        asistir.textContent = 'Seleccionar'}
 
 
       divEvento.className = "evento"
@@ -49,10 +49,9 @@ export const Home = async() => {
 
       precio.textContent = `${evento.precio}€`
       lugar.textContent = evento.lugar
-      asistentes.textContent = 'Asistentes: ${evento.asistentes}'
-      asistir.textContent = 'Quiero ir'
+      asistentes.textContent = `Asistentes: ${evento.asistentes}`
+  
     
-
       divEvento.append(imagen, nombre, descripcion, fecha,lugar, precio,asistentes, asistir)
       divEventos.append(divEvento)
 
@@ -63,9 +62,10 @@ export const Home = async() => {
 
       const user = JSON.parse(localStorage.getItem("user"))
 
-      user.preferidos = [...user.preferidos, idEvento]
+      if(!user.preferidos.includes (idEvento)){
+        user.preferidos = [...user.preferidos, idEvento]
 
-      const objetoFinal = JSON.stringify({
+        const objetoFinal = JSON.stringify({
         preferidos: [idEvento]
       })
 
@@ -79,10 +79,12 @@ export const Home = async() => {
       }
       const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, 
         opciones)
-    
-    const respuesta = await res.json()
+       const respuesta = await res.json()
 
-    localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("user", JSON.stringify(user))
+        } else {
+          console.log ("Este evento ya está en la lista de preferidos")
+        }
     Home()
   }
   
