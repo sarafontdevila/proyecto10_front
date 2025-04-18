@@ -12,16 +12,11 @@ const routes = [
     texto: 'Mis Eventos',
     funcion: Preferidos
   },
-  /*{
-    texto: 'Para Admin',
-    funcion: LoginRegister
-  },*/
   {
     texto: 'Login',
     funcion: LoginRegister
   }
 ]
-
 export const Header = () => {
   const header = document.querySelector('header')
   header.innerHTML = ''
@@ -38,7 +33,7 @@ export const Header = () => {
         Header()
       })
     } else {
-      if (!localStorage.getItem('token') && route.texto === 'Preferidos') {
+      if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
       } else {
         a.textContent = route.texto
         a.addEventListener('click', route.funcion)

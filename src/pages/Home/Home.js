@@ -1,5 +1,4 @@
 import './Home.css'
-  /*http://localhost:3000/api/v1/eventos */
 
 export const Home = async() => {
   const main = document.querySelector("main")
@@ -10,7 +9,7 @@ export const Home = async() => {
   pintarEventos(eventos, main)
 }
 
-  export const pintarEventos = (eventos, elementoPadre) => {
+  export const pintarEventos = (eventos, elementoPadre, esPreferidos = false) => {
     const divEventos = document.createElement("div")
     divEventos.className = "eventos"
 
@@ -22,19 +21,31 @@ export const Home = async() => {
       const precio = document.createElement("p")
       const lugar = document.createElement("p")
       const imagen = document.createElement("img")
-      
       const asistentes = document.createElement("p")
       const asistir = document.createElement("button")
+
       asistir.className = "btn-quieroir";
-
-      asistir.addEventListener("click", () => addPreferido(evento._id))
-
       const user = JSON.parse(localStorage.getItem("user"))
 
+      if (esPreferidos) {
+        asistir.textContent = "Borrar"
+        asistir.addEventListener("click", () => borrarPreferido(evento._id))
+      } else {
+        if (user?.preferidos?.includes(evento._id)) {
+          asistir.textContent = "En mi lista"
+        } else {
+          asistir.textContent = "Asistir"
+        }
+        asistir.addEventListener("click", () => addPreferido(evento._id))
+      }
+
+      /*asistir.addEventListener("click", () => addPreferido(evento._id))
+
+      
       if(user?.preferidos?.includes(evento._id)){
         asistir.textContent = 'En mi lista'
       }else {
-        asistir.textContent = 'Seleccionar'}
+        asistir.textContent = 'Asistir'}*/
 
 
       divEvento.className = "evento"
@@ -59,14 +70,13 @@ export const Home = async() => {
     }}
 
     const addPreferido = async (idEvento) => {
-
       const user = JSON.parse(localStorage.getItem("user"))
 
-      if(!user.preferidos.includes (idEvento)){
+      if(user &&!user.preferidos.includes (idEvento)){
         user.preferidos = [...user.preferidos, idEvento]
 
         const objetoFinal = JSON.stringify({
-        preferidos: [idEvento]
+        preferidos: user.preferidos
       })
 
       const opciones = {
@@ -82,11 +92,40 @@ export const Home = async() => {
        const respuesta = await res.json()
 
       localStorage.setItem("user", JSON.stringify(user))
+      Home()
         } else {
           console.log ("Este evento ya está en la lista de preferidos")
         }
-    Home()
   }
+  const borrarPreferido = async (idEvento) => {
+    const user = JSON.parse(localStorage.getItem("user"))
+  
+    if (user && user.preferidos.includes(idEvento)) {
+      user.preferidos = user.preferidos.filter(id => id !== idEvento)
+  
+      const objetoFinal = JSON.stringify({
+        preferidos: user.preferidos
+      })
+  
+      const opciones = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: objetoFinal
+      }
+  
+      const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, opciones)
+      const respuesta = await res.json()
+  
+      localStorage.setItem("user", JSON.stringify(user))
+
+      Home()
+  
+      }
+    }
+  
   
   
 
