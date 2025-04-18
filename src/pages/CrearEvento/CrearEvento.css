@@ -1,0 +1,16 @@
+#crear > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  height: 80svh
+ }
+
+ #crear input{ 
+  border-radius: 20px;
+  padding: 10px;
+  border: 3px solid black;
+  align-items: center;
+  align-content: center;
+ }

@@ -1,6 +1,7 @@
 import { Preferidos } from '../../pages/MisEventos/Preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
+import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
 import './Header.css'
 
 const routes = [
@@ -11,6 +12,10 @@ const routes = [
   {
     texto: 'Mis Eventos',
     funcion: Preferidos
+  },
+  {
+    texto: "Crear Evento",
+    funcion: CrearEvento
   },
   {
     texto: 'Login',
@@ -31,9 +36,12 @@ export const Header = () => {
       a.addEventListener('click', () => {
         localStorage.clear()
         Header()
+        Home()
       })
     } else {
-      if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
+      if (!localStorage.getItem('token') && route.texto === 'Crear Evento') {
+  
+      } else if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
       } else {
         a.textContent = route.texto
         a.addEventListener('click', route.funcion)

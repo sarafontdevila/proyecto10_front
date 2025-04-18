@@ -1,4 +1,6 @@
 import './Home.css'
+import { CrearEvento } from '../CrearEvento/CrearEvento'
+import { BotonesAsistir } from '../../components/BotonAsistir/BotonAsistir'
 
 export const Home = async() => {
   const main = document.querySelector("main")
@@ -24,7 +26,7 @@ export const Home = async() => {
       const asistentes = document.createElement("p")
       const asistir = document.createElement("button")
 
-      asistir.className = "btn-quieroir";
+      asistir.className = "button";
       const user = JSON.parse(localStorage.getItem("user"))
 
       if (esPreferidos) {
@@ -32,20 +34,12 @@ export const Home = async() => {
         asistir.addEventListener("click", () => borrarPreferido(evento._id))
       } else {
         if (user?.preferidos?.includes(evento._id)) {
-          asistir.textContent = "En mi lista"
+          asistir.textContent = "Confirmado"
         } else {
           asistir.textContent = "Asistir"
         }
         asistir.addEventListener("click", () => addPreferido(evento._id))
       }
-
-      /*asistir.addEventListener("click", () => addPreferido(evento._id))
-
-      
-      if(user?.preferidos?.includes(evento._id)){
-        asistir.textContent = 'En mi lista'
-      }else {
-        asistir.textContent = 'Asistir'}*/
 
 
       divEvento.className = "evento"
@@ -93,9 +87,7 @@ export const Home = async() => {
 
       localStorage.setItem("user", JSON.stringify(user))
       Home()
-        } else {
-          console.log ("Este evento ya está en la lista de preferidos")
-        }
+        } 
   }
   const borrarPreferido = async (idEvento) => {
     const user = JSON.parse(localStorage.getItem("user"))
@@ -120,10 +112,11 @@ export const Home = async() => {
       const respuesta = await res.json()
   
       localStorage.setItem("user", JSON.stringify(user))
-
-      Home()
-  
+      
+      Home();
+      
       }
+      
     }
   
   

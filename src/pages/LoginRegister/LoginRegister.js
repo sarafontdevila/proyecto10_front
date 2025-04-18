@@ -1,6 +1,7 @@
 import { Header } from '../../components/Header/Header'
 import { Home } from '../Home/Home'
 import { Preferidos } from '../MisEventos/Preferidos'
+import { CrearEvento } from '../CrearEvento/CrearEvento'
 import './LoginRegister.css'
 
 export const LoginRegister = () => {
@@ -91,6 +92,7 @@ const submit = async (email, password, form, statusMessage) => {
       Home()
       Header()
       Preferidos()
+      CrearEvento()
     } else {
       try {
         const registerOptions = {
@@ -144,6 +146,7 @@ const submit = async (email, password, form, statusMessage) => {
             Home()
             Header()
             Preferidos()
+            CrearEvento()
           })
         } else {
           const errorRegister = document.createElement('p')
