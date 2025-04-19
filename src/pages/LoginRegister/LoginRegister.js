@@ -32,6 +32,7 @@ const Login = (elementoPadre) => {
   inputEmail.placeholder = 'Email'
   inputPassword.placeholder = 'Contraseña'
   button.textContent = 'Entrar'
+  button.className = 'button'
 
   elementoPadre.append(form)
   form.append(inputEmail)
@@ -91,8 +92,7 @@ const submit = async (email, password, form, statusMessage) => {
 
       Home()
       Header()
-      Preferidos()
-      CrearEvento()
+
     } else {
       try {
         const registerOptions = {
@@ -120,18 +120,13 @@ const submit = async (email, password, form, statusMessage) => {
           successMessage.classList.add('success-message')
           successMessage.textContent =
             '¡Bienvenido ya estás registrado correctamente!'
-          successMessage.style.color = 'green'
+          successMessage.style.color = "#bb8218"
           successMessage.style.fontSize = '18px'
           successMessage.style.marginBottom = '20px'
 
           const continueButton = document.createElement('button')
           continueButton.textContent = 'Continuar'
-          continueButton.style.backgroundColor = '#4CAF50'
-          continueButton.style.color = 'white'
-          continueButton.style.padding = '10px 20px'
-          continueButton.style.border = 'none'
-          continueButton.style.borderRadius = '4px'
-          continueButton.style.cursor = 'pointer'
+          continueButton.className = "button"; 
 
           successDiv.appendChild(successMessage)
           successDiv.appendChild(continueButton)

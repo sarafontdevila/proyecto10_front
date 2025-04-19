@@ -1,6 +1,7 @@
 import './Home.css'
 import { CrearEvento } from '../CrearEvento/CrearEvento'
 import { BotonesAsistir } from '../../components/BotonAsistir/BotonAsistir'
+import { Preferidos } from '../MisEventos/Preferidos'
 
 export const Home = async() => {
   const main = document.querySelector("main")
@@ -26,7 +27,7 @@ export const Home = async() => {
       const asistentes = document.createElement("p")
       const asistir = document.createElement("button")
 
-      asistir.className = "button";
+     asistir.className = "button"; 
       const user = JSON.parse(localStorage.getItem("user"))
 
       if (esPreferidos) {
@@ -113,7 +114,7 @@ export const Home = async() => {
   
       localStorage.setItem("user", JSON.stringify(user))
       
-      Home();
+      Preferidos();
       
       }
       

@@ -1,4 +1,4 @@
-import { Preferidos } from '../../pages/MisEventos/Preferidos'
+import { Preferidos } from '../../pages/MisEventos/preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
@@ -44,7 +44,13 @@ export const Header = () => {
       } else if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
       } else {
         a.textContent = route.texto
-        a.addEventListener('click', route.funcion)
+        /*a.addEventListener('click', route.funcion)*/
+        a.addEventListener('click', () => {
+          const main = document.querySelector('main')
+          main.innerHTML = ''
+          route.funcion()
+        })
+
       }
     }
     nav.append(a)

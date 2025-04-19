@@ -1,5 +1,7 @@
 import './CrearEvento.css';
-import { Home } from '../Home/Home'; 
+import { Home } from '../Home/Home';
+import { pintarEventos } from "../Home/Home" 
+
 
 export const CrearEvento = () => {
   const main = document.querySelector('main');
@@ -24,10 +26,15 @@ const Crear = (elementoPadre) => {
   const inputPrecio = document.createElement('input');
   const inputLugar = document.createElement('input');
   const inputImagen = document.createElement('input');
-  inputImagen.type = 'file'; // ¡Importante!
+  inputImagen.type = 'file'; 
+  inputImagen.className = 'file';
   inputImagen.accept = 'image/*';
+
   const button = document.createElement('button');
-  button.textContent = 'Crear Evento';
+  button.className = 'button';
+  
+
+  /*buttonCrear.addEventListener('click', handleSubmit);*/
 
   const statusMessage = document.createElement('p');
   statusMessage.classList.add('status-message');
@@ -39,6 +46,7 @@ const Crear = (elementoPadre) => {
   inputLugar.placeholder = 'Lugar';
   inputPrecio.placeholder = 'Precio';
   button.textContent = 'Crear Evento';
+  
 
   elementoPadre.append(form);
   form.append(inputNombre);
@@ -51,7 +59,7 @@ const Crear = (elementoPadre) => {
   form.append(statusMessage);
 
   function handleSubmit(event) {
-    event.preventDefault(); // Evitar la recarga de la página
+    event.preventDefault(); 
 
     const formData = new FormData();
     formData.append('nombre', inputNombre.value);
@@ -62,7 +70,7 @@ const Crear = (elementoPadre) => {
     formData.append('imagen', inputImagen.files[0]); 
 
     
-    fetch('http://localhost:3000/api/v1/eventos', {
+    fetch('http://localhost:3000/api/v1/eventos/', {
       method: 'POST',
       body: formData, 
     })
