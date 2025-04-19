@@ -37,6 +37,7 @@ export const Header = () => {
         localStorage.clear()
         Header()
         Home()
+
       })
     } else {
       if (!localStorage.getItem('token') && route.texto === 'Crear Evento') {
@@ -45,6 +46,7 @@ export const Header = () => {
       } else {
         a.textContent = route.texto
         a.addEventListener('click', route.funcion)
+        
         /*a.addEventListener('click', () => {
           const main = document.querySelector('main')
           main.innerHTML = ''

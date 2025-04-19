@@ -55,7 +55,7 @@ export const Home = async() => {
 
       precio.textContent = `${evento.precio}€`
       lugar.textContent = evento.lugar
-      asistentes.textContent = `Asistentes: ${evento.asistentes}`
+      asistentes.textContent = `Asistentes: ${evento.asistentes.length || 0}`
   
     
       divEvento.append(imagen, nombre, descripcion, fecha,lugar, precio,asistentes, asistir)

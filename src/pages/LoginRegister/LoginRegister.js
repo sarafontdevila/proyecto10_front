@@ -20,6 +20,7 @@ export const LoginRegister = () => {
 const Login = (elementoPadre) => {
   const form = document.createElement('form')
 
+  const inputNombre = document.createElement('input')
   const inputEmail = document.createElement('input')
   const inputPassword = document.createElement('input')
   const button = document.createElement('button')
@@ -28,6 +29,8 @@ const Login = (elementoPadre) => {
   statusMessage.classList.add('status-message')
   statusMessage.style.display = 'none'
 
+  inputNombre.type = 'text'
+  inputNombre.placeholder = 'Nombre'
   inputPassword.type = 'password'
   inputEmail.placeholder = 'Email'
   inputPassword.placeholder = 'Contraseña'
@@ -35,6 +38,7 @@ const Login = (elementoPadre) => {
   button.className = 'button'
 
   elementoPadre.append(form)
+  form.append(inputNombre)
   form.append(inputEmail)
   form.append(inputPassword)
   form.append(button)
@@ -42,11 +46,11 @@ const Login = (elementoPadre) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
-    submit(inputEmail.value, inputPassword.value, form, statusMessage)
+    submit( inputNombre.value,inputEmail.value, inputPassword.value, form, statusMessage)
   })
 }
 
-const submit = async (email, password, form, statusMessage) => {
+const submit = async (nombre, email, password, form, statusMessage) => {
   try {
     const errorLogin = document.querySelector('.error')
     if (errorLogin) {
@@ -54,6 +58,7 @@ const submit = async (email, password, form, statusMessage) => {
     }
 
     const userData = {
+      nombre,
       email,
       password,
       preferidos: []
@@ -92,7 +97,7 @@ const submit = async (email, password, form, statusMessage) => {
 
       Home()
       Header()
-
+     
     } else {
       try {
         const registerOptions = {
@@ -134,14 +139,15 @@ const submit = async (email, password, form, statusMessage) => {
 
           localStorage.setItem('token', registerData.token)
           localStorage.setItem('user', JSON.stringify(registerData.user))
+         
 
           continueButton.addEventListener('click', () => {
             const main = document.querySelector('main')
             main.innerHTML = ''
             Home()
             Header()
-            Preferidos()
-            CrearEvento()
+          
+            
           })
         } else {
           const errorRegister = document.createElement('p')
