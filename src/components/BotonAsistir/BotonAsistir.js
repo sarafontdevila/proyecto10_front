@@ -17,7 +17,7 @@ export function BotonesAsistir() {
           const notificacion = document.createElement('p');
           notificacion.textContent = "Inicia sesión para asistir";
           notificacion.classList.add('notificacion-asistir'); 
-          /*boton.parentNode.insertBefore(notificacion, boton);*/
+          document.body.appendChild(notificacion);
           notificacion.style.color = 'red';
           setTimeout(() => {
             notificacion.remove();

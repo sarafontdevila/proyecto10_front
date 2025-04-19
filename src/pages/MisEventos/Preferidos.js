@@ -1,5 +1,5 @@
 import { pintarEventos } from "../Home/Home"
-
+import { Home } from "../Home/Home"
 import "./Preferidos.css"
 
 export const Preferidos = async() => {

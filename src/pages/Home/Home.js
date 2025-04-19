@@ -114,11 +114,14 @@ export const Home = async() => {
   
       localStorage.setItem("user", JSON.stringify(user))
       
-      Preferidos();
+      const main = document.querySelector("main")
+      main.innerHTML = ""
+      Home();
       
       }
       
     }
+      
   
   
   
