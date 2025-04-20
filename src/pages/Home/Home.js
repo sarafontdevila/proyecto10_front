@@ -6,9 +6,13 @@ import { Preferidos } from '../MisEventos/Preferidos'
 export const Home = async() => {
   const main = document.querySelector("main")
   main.innerHTML = ""
+
+  const token = localStorage.getItem("token")
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  
   const res = await fetch(`http://localhost:3000/api/v1/eventos`)
   const eventos = await res.json()
-
   pintarEventos(eventos, main)
 }
 

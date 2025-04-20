@@ -32,8 +32,9 @@ const Login = (elementoPadre) => {
   inputNombre.type = 'text'
   inputNombre.placeholder = 'Nombre'
   inputPassword.type = 'password'
-  inputEmail.placeholder = 'Email'
   inputPassword.placeholder = 'Contraseña'
+  /*inputEmail.type = 'Email' Para hacer los test es mas faciil sin arroba */
+  inputEmail.placeholder = 'Email'
   button.textContent = 'Entrar'
   button.className = 'button'
 
@@ -60,8 +61,7 @@ const submit = async (nombre, email, password, form, statusMessage) => {
     const userData = {
       nombre,
       email,
-      password,
-      preferidos: []
+      password
     }
 
     let loginSuccess = false
@@ -139,15 +139,13 @@ const submit = async (nombre, email, password, form, statusMessage) => {
 
           localStorage.setItem('token', registerData.token)
           localStorage.setItem('user', JSON.stringify(registerData.user))
-         
+
 
           continueButton.addEventListener('click', () => {
             const main = document.querySelector('main')
             main.innerHTML = ''
             Home()
             Header()
-          
-            
           })
         } else {
           const errorRegister = document.createElement('p')
