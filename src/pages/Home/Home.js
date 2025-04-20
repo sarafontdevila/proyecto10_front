@@ -82,9 +82,21 @@ export const Home = async() => {
         },
         body: objetoFinal
       }
-      const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, 
-        opciones)
+      const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, opciones)
        const respuesta = await res.json()
+
+       const eventoOpciones = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({
+          asistente: user._id
+        })
+      }
+      
+      await fetch(`http://localhost:3000/api/v1/eventos/${idEvento}/asistentes`, eventoOpciones)
 
       localStorage.setItem("user", JSON.stringify(user))
       Home()
@@ -111,6 +123,16 @@ export const Home = async() => {
   
       const res = await fetch(`http://localhost:3000/api/v1/users/${user._id}`, opciones)
       const respuesta = await res.json()
+
+      const eventoOpciones = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+      await fetch(`http://localhost:3000/api/v1/eventos/${idEvento}/asistentes/${user._id}`, eventoOpciones)
+     
   
       localStorage.setItem("user", JSON.stringify(user))
       
