@@ -2,6 +2,7 @@ import { Preferidos } from '../../pages/MisEventos/preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
+import { ListaAsistentes } from '../../pages/Listas/ListaAsistentes'
 import './Header.css'
 
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
   {
     texto: 'Mis Eventos',
     funcion: Preferidos
+  },
+  { 
+    texto: 'Listas',
+    funcion: ListaAsistentes
   },
   {
     texto: "Crear Evento",
@@ -26,12 +31,13 @@ export const Header = () => {
   const header = document.querySelector('header')
   header.innerHTML = ''
   const nav = document.createElement('nav')
-
+  const token = localStorage.getItem('token')
+  
   for (const route of routes) {
     const a = document.createElement('a')
     a.href = '#'
 
-    if (route.texto === 'Login' && localStorage.getItem('token')) {
+    if (route.texto === 'Login' && token){
       a.textContent = 'Logout'
       a.addEventListener('click', () => {
         localStorage.clear()
@@ -39,23 +45,31 @@ export const Header = () => {
         Home()
 
       })
-    } else {
+    
+      } else {
+       
+        if (!token && ['Crear Evento', 'Mis Eventos', 'Listas'].includes(route.texto))
+         {
+          continue
+        }
+      
+        a.textContent = route.texto
+        a.addEventListener('click', route.funcion)
+      }
+      nav.append(a)
+    }
+    header.append(nav)
+  }
+
+
+
+
+  /*} else {
       if (!localStorage.getItem('token') && route.texto === 'Crear Evento') {
   
       } else if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
       } else {
         a.textContent = route.texto
         a.addEventListener('click', route.funcion)
-        
-        /*a.addEventListener('click', () => {
-          const main = document.querySelector('main')
-          main.innerHTML = ''
-          route.funcion()
-        })*/
+      }*/
 
-      }
-    }
-    nav.append(a)
-  }
-  header.append(nav)
-}

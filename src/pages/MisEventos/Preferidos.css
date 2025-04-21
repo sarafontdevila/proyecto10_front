@@ -1,0 +1,38 @@
+
+.lista-asistentes {
+  margin-top: 40px;
+  padding: 8px 15px;
+  background-color: transparent; 
+  border-radius: 0;
+  color: #fff;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.lista-asistentes ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 5px 0;
+}
+
+.lista-asistentes li {
+  margin-bottom: 3px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  font-size: 14px;
+  color: #ccc; 
+}
+
+.lista-asistentes li:last-child {
+  border-bottom: none;
+}
+
+.lista-asistentes p {
+  margin-top: 0px;
+  font-size: px;
+  color: #ccc;
+}

@@ -1,0 +1,98 @@
+.lista-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.lista-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  color: #bb8218;
+}
+
+.user-icon {
+  font-size: 1.8rem;
+  margin-right: 0.5rem;
+}
+
+.eventos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.evento-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color:#f0f0f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #bb8218;
+}
+
+.evento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evento-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.fecha-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+}
+
+.calendar-icon {
+  margin-right: 0.5rem;
+}
+
+.evento-card p {
+  margin-bottom: 1rem;
+  color: #bb8218;
+}
+
+.asistentes-container {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.asistentes-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.asistentes-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.asistentes-lista {
+  font-size: 0.95rem;
+  color: #bb8218;
+  line-height: 1.5;
+}
+
+.no-events {
+  text-align: center;
+  padding: 2rem;
+  color: #bb8218;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #ef4444;
+  text-align: center;
+  padding: 1rem;
+}

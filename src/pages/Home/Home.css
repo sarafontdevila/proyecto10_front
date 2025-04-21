@@ -26,13 +26,19 @@
 }
 
 
-
 .evento > div {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0px;
 }
+.evento > div:not(.lista-asistentes) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+}
+
 
 .eventos {
   display: flex;
