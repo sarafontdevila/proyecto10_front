@@ -1,4 +1,4 @@
-import './CrearEvento.css';
+import '../../components/Form/Form.css';
 import { Home } from '../Home/Home';
 import { pintarEventos } from "../Home/Home" 
 
