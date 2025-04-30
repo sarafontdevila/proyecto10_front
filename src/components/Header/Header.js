@@ -27,11 +27,26 @@ const routes = [
     funcion: LoginRegister
   }
 ]
+
+
 export const Header = () => {
   const header = document.querySelector('header')
   header.innerHTML = ''
   const nav = document.createElement('nav')
+  nav.classList.add( 'nav-links')
+ 
+
+  const hamburger = document.createElement('button')
+  hamburger.className = 'hamburger'
+  hamburger.innerHTML = '&#9776;' 
+  header.appendChild(hamburger)
+
+  hamburger.addEventListener('click', () => {
+    nav.classList.toggle('open') 
+  })
+
   const token = localStorage.getItem('token')
+
   
   for (const route of routes) {
     const a = document.createElement('a')
@@ -43,7 +58,6 @@ export const Header = () => {
         localStorage.clear()
         Header()
         Home()
-
       })
     
       } else {
@@ -56,7 +70,7 @@ export const Header = () => {
         a.textContent = route.texto
         a.addEventListener('click', route.funcion)
       }
-      nav.append(a)
+      nav.appendChild(a)
     }
     header.append(nav)
   }
