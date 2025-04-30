@@ -41,7 +41,6 @@ const Crear = (elementoPadre) => {
   button.textContent = 'Crear Evento';
   button.type = 'submit';
   
-  /*buttonCrear.addEventListener('click', handleSubmit);*/
   const statusMessage = document.createElement('p');
   statusMessage.classList.add('status-message');
   statusMessage.style.display = 'none';
@@ -70,10 +69,10 @@ const Crear = (elementoPadre) => {
     
     const formData = new FormData();
     formData.append('nombre', inputNombre.value);
-    formData.append('descripcion', inputDescripcion.value);
     formData.append('fecha', inputFecha.value);
-    formData.append('precio', inputPrecio.value);
+    formData.append('descripcion', inputDescripcion.value);
     formData.append('lugar', inputLugar.value);
+    formData.append('precio', inputPrecio.value);
     formData.append('imagen', inputImagen.files[0]); 
 
     
