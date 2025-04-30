@@ -78,6 +78,9 @@ const Crear = (elementoPadre) => {
     
     fetch('http://localhost:3000/api/v1/eventos/', {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
       body: formData, 
     })
       .then(response => response.json())
