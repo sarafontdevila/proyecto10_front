@@ -1,4 +1,4 @@
-import { Preferidos } from '../../pages/MisEventos/preferidos'
+import { Preferidos } from '../../pages/MisEventos/Preferidos'
 import { Home } from '../../pages/Home/Home'
 import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
