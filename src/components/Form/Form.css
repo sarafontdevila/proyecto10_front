@@ -1,5 +1,5 @@
 
-#crear > form {
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
   height: 80svh;
 }
 
-#crear > form > input {
+form > input {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -21,7 +21,7 @@
   transition: border-color 0.25s;
   font-weight: bold;
 }
-#crear > form > input::placeholder,
+form > input::placeholder,
 textarea::placeholder {
   color: #bb8218;
   font-size: 0.6em;
@@ -30,7 +30,7 @@ textarea::placeholder {
 }
 
 
-#crear > form > input[type='file'] {
+ form > input[type='file'] {
   border-radius: 8px;
   font-size: 0.6em;
   font-style: italic;
@@ -44,7 +44,7 @@ textarea::placeholder {
   text-align:left;
 }
 
-#crear > form > input[type="file"]::-webkit-file-upload-button {
+form > input[type="file"]::-webkit-file-upload-button {
   background-color: rgb(150, 146, 146); 
   color: whitesmoke; 
   border: none;
@@ -58,22 +58,9 @@ textarea::placeholder {
   text-align:left;
 }
 
-@media (max-width: 768px) {
-  #crear {
-    width: 95%;
-    padding: 15px;
-  }
-}
 
-@media (max-width: 480px) {
-  #crear input,
-  #crear .button {
-    font-size: 0.9rem;
-  }
-  
-  #crear {
-    padding: 10px;
-  }
-}
+
+
+
 
 

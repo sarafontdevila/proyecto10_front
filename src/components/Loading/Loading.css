@@ -1,0 +1,13 @@
+#loading {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgb(233, 39, 59);
+  color: white;
+  border-radius: 8px;
+  z-index: 9999;
+  font-size: 30px;
+}

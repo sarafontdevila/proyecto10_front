@@ -75,15 +75,3 @@ export const Header = () => {
     header.append(nav)
   }
 
-
-
-
-  /*} else {
-      if (!localStorage.getItem('token') && route.texto === 'Crear Evento') {
-  
-      } else if (!localStorage.getItem('token') && route.texto === 'Mis Eventos') {
-      } else {
-        a.textContent = route.texto
-        a.addEventListener('click', route.funcion)
-      }*/
-
