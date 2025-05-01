@@ -1,7 +1,7 @@
 import './Home.css'
 import { CrearEvento } from '../CrearEvento/CrearEvento'
 import { BotonesAsistir } from '../../components/BotonAsistir/BotonAsistir'
-import { Preferidos } from '../MisEventos/Preferidos'
+import { Preferidos } from '../MisEventos/preferidos'
 import { fetchData } from '../../utils/api'
 
 export const Home = async () => {

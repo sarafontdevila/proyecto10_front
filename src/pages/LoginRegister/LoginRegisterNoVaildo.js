@@ -1,4 +1,4 @@
-import { Header } from '../../components/Header/Header'
+/*import { Header } from '../../components/Header/Header'
 import { Home } from '../Home/Home'
 import { Preferidos } from '../MisEventos/Preferidos'
 import { CrearEvento } from '../CrearEvento/CrearEvento'
@@ -171,4 +171,4 @@ const submit = async (nombre, email, password, form, statusMessage) => {
     errorGeneral.style.color = 'red'
     form.append(errorGeneral)
   }
-}
+}*/
