@@ -1,5 +1,4 @@
 import { pintarEventos } from "../Home/Home"
-import "./Preferidos.css"
 import { fetchData } from "../../utils/api"
 
 export const Preferidos = async () => {

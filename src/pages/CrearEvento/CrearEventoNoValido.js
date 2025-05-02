@@ -1,4 +1,4 @@
-import '../../components/Form/Form.css';
+/*import '../../components/Form/Form.css';
 import { Home } from '../Home/Home';
 import { showLoading, hideLoading } from '../../components/Loading/Loading';
 import { fetchData } from '../../utils/api';
@@ -113,4 +113,4 @@ const Crear = (elementoPadre) => {
       })
       
   }
-};
+};*/

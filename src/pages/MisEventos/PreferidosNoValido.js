@@ -1,4 +1,4 @@
-import { pintarEventos } from "../Home/Home"
+/*import { pintarEventos } from "../Home/Home"
 import { Home } from "../Home/Home"
 import "./Preferidos.css"
 
@@ -15,7 +15,7 @@ export const Preferidos = async() => {
   const preferidos = eventos.filter(evento => ids.includes(evento._id))
 
   pintarEventos(preferidos, main, true)
-}
+}*/
 
   
       

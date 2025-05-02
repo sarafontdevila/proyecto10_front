@@ -1,4 +1,4 @@
-import './ListaAsistentes.css'
+/*import './ListaAsistentes.css'
 
 export const ListaAsistentes = async() => {
         const main = document.querySelector("main")
@@ -121,6 +121,6 @@ export const ListaAsistentes = async() => {
           errorMsg.textContent = "Error al cargar las listas de asistentes"
           main.append(errorMsg)
         }
-      }
+      }*/
       
       
