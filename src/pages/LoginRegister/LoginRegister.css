@@ -7,6 +7,26 @@
   height: 80svh;
   
 }
+#login > input {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 200;
+  margin-top: 1px;
+  background-color: white;
+  color: #bb8218;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  font-weight: bold;
+}
+#login p {
+  text-align: center;
+  width: 100%;
+}
+
+
+
 
 @media (max-width: 480px) {
   #login input,

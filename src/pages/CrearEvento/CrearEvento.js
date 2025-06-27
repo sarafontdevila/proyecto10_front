@@ -1,7 +1,7 @@
 import '../../components/Form/Form.css';
 import { Home } from '../Home/Home';
-import { showLoading, hideLoading } from '../../components/Loading/Loading';
 import { fetchData } from '../../utils/api';
+import { loading } from '../../components/Loading/Loading';
 
 export const CrearEvento = () => {
   const main = document.querySelector('main');
@@ -50,13 +50,13 @@ const Crear = (elementoPadre) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    showLoading();
+    loading(true);
 
     if (!inputNombre.value || !inputFecha.value || !inputDescripcion.value ||
       !inputLugar.value || !inputPrecio.value || !inputImagen.files[0]) {
 
       setTimeout(() => {
-        hideLoading();
+        loading(false); 
         statusMessage.textContent = 'Por favor complete todos los campos';
         statusMessage.style.display = 'block';
       }, 500);
@@ -88,7 +88,7 @@ const Crear = (elementoPadre) => {
       statusMessage.style.display = 'block';
       console.error('Error:', error);
     } finally {
-      hideLoading();
+      loading(false); 
     }
   }
 };

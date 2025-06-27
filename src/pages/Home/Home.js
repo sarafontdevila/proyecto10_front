@@ -1,8 +1,6 @@
 import './Home.css'
-import { CrearEvento } from '../CrearEvento/CrearEvento'
-import { BotonesAsistir } from '../../components/BotonAsistir/BotonAsistir'
-import { Preferidos } from '../MisEventos/Preferidos'
 import { fetchData } from '../../utils/api'
+
 
 export const Home = async () => {
   const main = document.querySelector("main")
@@ -32,12 +30,20 @@ export const pintarEventos = async (eventos, elementoPadre, esPreferidos = false
 
     asistir.className = "button"
     const user = JSON.parse(localStorage.getItem("user"))
+    const token = localStorage.getItem("token")
 
     if (esPreferidos) {
       asistir.textContent = "Borrar"
       asistir.addEventListener("click", () => borrarPreferido(evento._id))
     } else {
-      if (user?.preferidos?.includes(evento._id)) {
+      if (!token || !user) {
+        asistir.textContent = "Logúeate primero"
+        asistir.style.cursor = "not-allowed"
+        asistir.style.opacity = "0.6"
+        asistir.addEventListener("click", () => {
+          window.location.hash = "#/login" 
+    })}else {
+      if (user.preferidos?.includes(evento._id)) {
         asistir.textContent = "Confirmado"
       } else {
         asistir.textContent = "Asistir"
@@ -121,4 +127,4 @@ const borrarPreferido = async (idEvento) => {
     main.innerHTML = ""
     Home()
   }
-}
+}}

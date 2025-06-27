@@ -1,25 +1,17 @@
 import './Loading.css'
 
-export function createLoadingElement() {
-  if (document.getElementById('loading')) {
-    return;
+function loading(show = true) {
+  let loadingElement = document.getElementById('loading');
+
+ 
+  if (!loadingElement) {
+    loadingElement = document.createElement('div');
+    loadingElement.id = 'loading';
+    loadingElement.innerHTML = 'Cargando...';
+    document.body.appendChild(loadingElement);
   }
   
-  const loadingElement = document.createElement('div');
-  loadingElement.id = 'loading';
-  loadingElement.innerHTML = 'Cargando...';
-  
-  document.body.appendChild(loadingElement);
-}
-createLoadingElement();
-
-function showLoading() {
-  createLoadingElement(); 
-  document.getElementById('loading').style.display = 'block';
+  loadingElement.style.display = show ? 'block' : 'none';
 }
 
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
-
-export { showLoading, hideLoading };
+export { loading };

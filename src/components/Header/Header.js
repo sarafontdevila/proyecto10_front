@@ -1,8 +1,9 @@
 import { Preferidos } from '../../pages/MisEventos/Preferidos'
 import { Home } from '../../pages/Home/Home'
-import { LoginRegister } from '../../pages/LoginRegister/LoginRegister'
 import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
 import { ListaAsistentes } from '../../pages/Listas/ListaAsistentes'
+import { Register } from '../../pages/Register/Register'
+import { Login } from '../../pages/Login/Login'
 import './Header.css'
 
 const routes = [
@@ -22,9 +23,13 @@ const routes = [
     texto: "Crear Evento",
     funcion: CrearEvento
   },
+    {
+      texto: 'Registro',
+      funcion: Register
+    },
   {
     texto: 'Login',
-    funcion: LoginRegister
+    funcion: Login
   }
 ]
 
