@@ -23,7 +23,6 @@
 
 .evento > img {
   width: 300px;
-  height: 100px;
   height: 350px;
   object-fit: cover;
   border-radius: 10px;

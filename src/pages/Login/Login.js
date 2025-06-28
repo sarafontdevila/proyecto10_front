@@ -75,6 +75,8 @@ const handleLogin = async (email, password, statusMessage) => {
       method: 'POST',
       body: userData
     })
+    console.log('Usuario recibido del login:', userData_res.user)
+    console.log('¿Tiene preferidos?', userData_res.user.preferidos)
 
     localStorage.setItem('token', userData_res.token)
     localStorage.setItem('user', JSON.stringify(userData_res.user))

@@ -2,6 +2,7 @@ import '../../components/Form/Form.css';
 import { Home } from '../Home/Home';
 import { fetchData } from '../../utils/api';
 import { loading } from '../../components/Loading/Loading';
+import { pintarEventos } from '../../utils/pintarEventos';
 
 export const CrearEvento = () => {
   const main = document.querySelector('main');
