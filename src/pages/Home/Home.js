@@ -10,5 +10,5 @@ export const Home = async () => {
     url: 'http://localhost:3000/api/v1/eventos'
   })
 
-  pintarEventos(eventos, main, false) // false = no es preferidos
+  pintarEventos(eventos, main, false) 
 }
