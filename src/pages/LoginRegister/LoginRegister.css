@@ -7,6 +7,10 @@
   height: 80svh;
   
 }
+#login p {
+  text-align: center;
+  width: 100%;
+}
 #login > input {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -20,13 +24,21 @@
   transition: border-color 0.25s;
   font-weight: bold;
 }
-#login p {
+
+.status-message {
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
   text-align: center;
   width: 100%;
+  max-width: 400px;
+  font-size: 0.9em;
 }
 
-
-
+#login p:last-child {
+  margin-top: 20px;
+}
 
 @media (max-width: 480px) {
   #login input,
@@ -36,6 +48,9 @@
   
   #login{
     padding: 10px;
+  }
+  #login form {
+    max-width: 100%;
   }
 }
 
