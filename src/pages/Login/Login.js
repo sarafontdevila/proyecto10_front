@@ -60,6 +60,7 @@ const createLoginForm = (elementoPadre) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
+    
     handleLogin(inputEmail.value, inputPassword.value, statusMessage)
   })
 }
