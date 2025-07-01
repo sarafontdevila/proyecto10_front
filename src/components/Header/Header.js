@@ -1,4 +1,4 @@
-import { Preferidos } from '../../pages/MisEventos/Preferidos'
+import { Preferidos } from '../../pages/MisEventos/preferidos'
 import { Home } from '../../pages/Home/Home'
 import { CrearEvento } from '../../pages/CrearEvento/CrearEvento'
 import { ListaAsistentes } from '../../pages/Listas/ListaAsistentes'
@@ -69,6 +69,9 @@ export const Header = () => {
        
         if (!token && ['Crear Evento', 'Mis Eventos', 'Listas'].includes(route.texto))
          {
+          continue
+        }
+        if (token && route.texto === 'Registro') {
           continue
         }
       

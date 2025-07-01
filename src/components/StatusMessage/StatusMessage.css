@@ -1,0 +1,26 @@
+
+.status-message {
+  display: none; 
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: auto; 
+  margin-right: auto; 
+  max-width: 400px; 
+  background-color: #fdd; 
+  color: #d00;
+  border: 1px solid #d00;
+}
+
+.status-message.error { 
+  background-color: #fdd;
+  color: #d00;
+  border: 1px solid #d00;
+}
+.status-message.success { 
+  background-color: #dfd;
+  color: #0d0;
+  border: 1px solid #0d0;
+}

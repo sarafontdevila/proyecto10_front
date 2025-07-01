@@ -1,25 +1,24 @@
-
-import { pintarEventos } from "../../utils/pintarEventos"
-import { fetchData } from "../../utils/api"
+import { pintarEventos } from '../../components/pintarEventos'
+import { fetchData } from '../../utils/api'
 
 export const Preferidos = async () => {
-  const main = document.querySelector("main")
-  main.innerHTML = ""
+  const main = document.querySelector('main')
+  main.innerHTML = ''
 
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem('user'))
   const ids = user?.preferidos || []
 
   try {
     const eventos = await fetchData({
-      url: "http://localhost:3000/api/v1/eventos",
+      url: 'http://localhost:3000/api/v1/eventos'
     })
 
-    const preferidos = eventos.filter(evento => ids.includes(evento._id))
-    pintarEventos(preferidos, main, true) 
+    const preferidos = eventos.filter((evento) => ids.includes(evento._id))
+    pintarEventos(preferidos, main, true)
   } catch (error) {
-    console.error("Error al obtener eventos preferidos:", error)
-    const errorMsg = document.createElement("p")
-    errorMsg.textContent = "No se pudieron cargar tus eventos preferidos."
+    console.error('Error al obtener eventos preferidos:', error)
+    const errorMsg = document.createElement('p')
+    errorMsg.textContent = 'No se pudieron cargar tus eventos preferidos.'
     main.append(errorMsg)
   }
 }

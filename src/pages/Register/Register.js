@@ -1,6 +1,5 @@
 import { Header } from '../../components/Header/Header'
 import { Home } from '../Home/Home'
-import '../LoginRegister/LoginRegister.css'
 import { fetchData } from '../../utils/api'
 
 export const Register = () => {
@@ -68,11 +67,11 @@ const createRegisterForm = (elementoPadre) => {
   })
 }
 
-const handleRegister = async (name, email, password, statusMessage) => {
+const handleRegister = async (nombre, email, password, statusMessage) => {
   try {
     statusMessage.style.display = 'none'
 
-    const newUser = { name, email, password }
+    const newUser = { nombre, email, password }
 
     const userData_res = await fetchData({
       url: 'http://localhost:3000/api/v1/users/register',

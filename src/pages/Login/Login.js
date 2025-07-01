@@ -1,6 +1,5 @@
 import { Header } from '../../components/Header/Header'
 import { Home } from '../Home/Home'
-import '../LoginRegister/LoginRegister.css'
 import { fetchData } from '../../utils/api'
 
 export const Login = () => {
