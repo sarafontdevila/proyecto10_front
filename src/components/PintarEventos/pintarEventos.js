@@ -1,4 +1,4 @@
-import { fetchData } from '../utils/api'
+import { fetchData } from '../../utils/api'
 
 export const pintarEventos = async (
   eventos,
@@ -104,6 +104,13 @@ const addPreferido = async (idEvento, callbackRecarga) => {
       method: 'POST',
       token: localStorage.getItem('token')
     })
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user && !user.preferidos.includes(idEvento)) {
+      user.preferidos.push(idEvento)
+      localStorage.setItem('user', JSON.stringify(user))
+    }
+
+    console.log('Evento añadido correctamente')
     callbackRecarga()
   } catch (error) {
     console.error('Error agregando preferido:', error)
@@ -124,18 +131,38 @@ const addPreferido = async (idEvento, callbackRecarga) => {
     alert("Error al quitar de preferidos")
   }
 }*/
+const borrarPreferido = async (idEvento, callbackRecarga) => {
+  try {
+    await fetchData({
+      url: `http://localhost:3000/api/v1/usuarios/preferidos/${idEvento}`,
+      method: 'DELETE',
+      token: localStorage.getItem('token')
+    })
+
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user) {
+      user.preferidos = user.preferidos.filter((id) => id !== idEvento)
+      localStorage.setItem('user', JSON.stringify(user))
+    }
+
+    callbackRecarga()
+  } catch (error) {
+    console.error('Error borrando preferido:', error)
+    alert('Error al quitar de preferidos')
+  }
+}
 
 const irARegistro = async () => {
-  const { Register } = await import('../pages/Register/Register')
+  const { Register } = await import('../../pages/Register/Register')
   Register()
 }
 
 const recargarHome = async () => {
-  const { Home } = await import('../pages/Home/Home')
+  const { Home } = await import('../../pages/Home/Home')
   Home()
 }
 
 const recargarPreferidos = async () => {
-  const { Preferidos } = await import('../pages/MisEventos/preferidos')
+  const { Preferidos } = await import('../../pages/MisEventos/preferidos')
   Preferidos()
 }

@@ -1,7 +1,7 @@
-import { Header } from '../../components/Header/Header'
-import { Home } from '../Home/Home'
+import { Header } from '../../components/Header/Header.js'
+import { Home } from '../Home/Home.js'
 import '../LoginRegister/LoginRegister.css'
-import { fetchData } from '../../utils/api'
+import { fetchData } from '../../utils/api.js'
 
 export const Login = () => {
   const main = document.querySelector('main')

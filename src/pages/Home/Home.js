@@ -1,6 +1,6 @@
 import './Home.css'
 import { fetchData } from '../../utils/api'
-import { pintarEventos } from '../../components/pintarEventos'
+import { pintarEventos } from '../../components/PintarEventos/pintarEventos'
 
 export const Home = async () => {
   const main = document.querySelector('main')

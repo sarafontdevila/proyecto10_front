@@ -1,6 +1,6 @@
-import { Header } from '../../components/Header/Header'
-import { Home } from '../Home/Home'
-import { fetchData } from '../../utils/api'
+import { Header } from '../../components/Header/Header.js'
+import { Home } from '../Home/Home.js'
+import { fetchData } from '../../utils/api.js'
 
 export const Login = () => {
   const main = document.querySelector('main')
@@ -14,11 +14,6 @@ export const Login = () => {
 
 const createLoginForm = (elementoPadre) => {
   const form = document.createElement('form')
-
-  const title = document.createElement('h2')
-  title.textContent = 'Iniciar Sesión'
-  title.style.textAlign = 'center'
-  title.style.marginBottom = '20px'
 
   const inputEmail = document.createElement('input')
   inputEmail.type = 'email'
@@ -54,7 +49,7 @@ const createLoginForm = (elementoPadre) => {
   registerLink.innerHTML = '¿No tienes cuenta? '
   registerLink.appendChild(anchor)
 
-  form.append(title, inputEmail, inputPassword, button, statusMessage, registerLink)
+  form.append(inputEmail, inputPassword, button, statusMessage, registerLink)
   elementoPadre.appendChild(form)
 
   form.addEventListener('submit', (e) => {
