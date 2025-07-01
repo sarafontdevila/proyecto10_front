@@ -47,14 +47,15 @@ export const pintarEventos = async (eventos, elementoPadre, esPreferidos = false
   
 
   elementoPadre.append(divEventos)
-}*/
+}
 
 
 const addPreferido = async (idEvento, callbackRecarga) => {
   await fetchData({
-  url: `http://localhost:3000/api/v1/usuarios/preferidos/${idEvento}`,
+  url: `http://localhost:3000/api/v1/usuarios/${idEvento}`,
   method: 'POST',
   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+ 
      })
   callbackRecarga() 
 }

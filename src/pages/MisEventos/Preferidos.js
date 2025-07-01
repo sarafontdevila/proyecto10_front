@@ -7,7 +7,7 @@ export const Preferidos = async () => {
 
   try {
     const preferidos = await fetchData({
-      url: 'http://localhost:3000/api/v1/usuarios/preferidos',
+      url: 'http://localhost:3000/api/v1/eventos/mis-eventos',
       method: 'GET',
       token: localStorage.getItem('token')
     })
