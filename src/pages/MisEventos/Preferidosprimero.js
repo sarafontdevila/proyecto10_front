@@ -1,4 +1,4 @@
-import { pintarEventos } from "../Home/Home"
+/*import { pintarEventos } from "../Home/Home"
 import { fetchData } from "../../utils/api"
 
 export const Preferidos = async () => {
@@ -34,4 +34,4 @@ export const Preferidos = async () => {
     errorMsg.style.color = "red"
     main.append(errorMsg)
   }
-}
+}*/

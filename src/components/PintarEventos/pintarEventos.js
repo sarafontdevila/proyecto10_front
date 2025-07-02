@@ -1,4 +1,5 @@
 import { fetchData } from '../../utils/api'
+import { mostrarMensaje } from '../Message/Message'
 
 export const pintarEventos = async (
   eventos,
@@ -63,7 +64,7 @@ export const pintarEventos = async (
         if (confirmado) {
           try {
             await eliminarEvento(evento._id)
-            alert('Evento eliminado correctamente.')
+            mostrarMensaje('Evento eliminado correctamente.')
             if (esPreferidos) {
               recargarPreferidos()
             } else {
@@ -71,7 +72,7 @@ export const pintarEventos = async (
             }
           } catch (error) {
             console.error('Error al eliminar evento:', error)
-            alert('Error al eliminar el evento. Inténtalo de nuevo.')
+            mostrarMensaje('Error al eliminar el evento. Inténtalo de nuevo.')
           }
         }
       })
@@ -84,6 +85,29 @@ export const pintarEventos = async (
   elementoPadre.appendChild(divEventos)
 }
 
+const asistirAEvento = async (eventoId, userId, token, boton) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/eventos/${eventoId}/asistentes`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ asistente: user_Id })
+    })
+
+    if (response.ok) {
+      mostrarMensaje('✅ Te has registrado como asistente')
+      boton.disabled = true
+      boton.textContent = 'Ya estás registrado'
+    } else {
+      mostrarMensaje('⚠️ Error al registrarte como asistente')
+    }
+  } catch (error) {
+    console.error('❌ Error al asistir:', error)
+    mostrarMensaje('Error al intentar asistir al evento')
+  }
+}
 const eliminarEvento = async (idEvento) => {
   try {
     await fetchData({
@@ -96,59 +120,79 @@ const eliminarEvento = async (idEvento) => {
     throw error
   }
 }
-
 const addPreferido = async (idEvento, callbackRecarga) => {
   try {
-    await fetchData({
-      url: `http://localhost:3000/api/v1/usuarios/preferidos/${idEvento}`,
-      method: 'POST',
-      token: localStorage.getItem('token')
-    })
     const user = JSON.parse(localStorage.getItem('user'))
-    if (user && !user.preferidos.includes(idEvento)) {
-      user.preferidos.push(idEvento)
-      localStorage.setItem('user', JSON.stringify(user))
+    const token = localStorage.getItem('token')
+
+    if (!user || !token) {
+      mostrarMensaje('Debes iniciar sesión')
+      return
     }
 
-    console.log('Evento añadido correctamente')
+
+    if (user.preferidos.includes(idEvento)) {
+      mostrarMensaje('Este evento ya está en tus preferidos')
+      return
+    }
+
+    const nuevosPreferidos = [...user.preferidos, idEvento]
+
+    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        preferidos: nuevosPreferidos
+      })
+    })
+
+    user.preferidos = nuevosPreferidos
+    localStorage.setItem('user', JSON.stringify(user))
+
+    mostrarMensaje('Evento añadido a tus preferidos')
     callbackRecarga()
   } catch (error) {
     console.error('Error agregando preferido:', error)
-    alert('Error al agregar a preferidos')
+    mostrarMensaje('Error al agregar a preferidos')
   }
 }
 
-/*const borrarPreferido = async (idEvento, callbackRecarga) => {
-  try {
-    await fetchData({
-      url: `http://localhost:3000/api/v1/usuarios/preferidos/${idEvento}`,
-      method: 'DELETE',
-      token: localStorage.getItem('token') // Usar el parámetro token de fetchData
-    })
-    callbackRecarga()
-  } catch (error) {
-    console.error('Error borrando preferido:', error)
-    alert("Error al quitar de preferidos")
-  }
-}*/
 const borrarPreferido = async (idEvento, callbackRecarga) => {
   try {
-    await fetchData({
-      url: `http://localhost:3000/api/v1/usuarios/preferidos/${idEvento}`,
-      method: 'DELETE',
-      token: localStorage.getItem('token')
-    })
-
     const user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
-      user.preferidos = user.preferidos.filter((id) => id !== idEvento)
-      localStorage.setItem('user', JSON.stringify(user))
+    const token = localStorage.getItem('token')
+
+    if (!user || !token) {
+      mostrarMensaje('Debes iniciar sesión')
+      return
     }
 
+    
+    const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
+
+    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        preferidos: nuevosPreferidos
+      })
+    })
+
+  
+    user.preferidos = nuevosPreferidos
+    localStorage.setItem('user', JSON.stringify(user))
+
+    mostrarMensaje('Evento eliminado de tus preferidos')
     callbackRecarga()
   } catch (error) {
     console.error('Error borrando preferido:', error)
-    alert('Error al quitar de preferidos')
+    mostrarMensaje('Error al quitar de preferidos')
   }
 }
 

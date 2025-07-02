@@ -1,4 +1,4 @@
-import { pintarEventos } from '../../components/PintarEventos/pintarEventos'
+/*import { pintarEventos } from '../../components/PintarEventos/pintarEventos'
 import { fetchData } from '../../utils/api'
 
 export const Preferidos = async () => {
@@ -21,4 +21,4 @@ export const Preferidos = async () => {
     errorMsg.textContent = 'No se pudieron cargar tus eventos preferidos.'
     main.append(errorMsg)
   }
-}
+}*/
