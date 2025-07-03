@@ -7,6 +7,7 @@ export const ListaAsistentes = async () => {
   main.innerHTML = "";
 
   const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const header = document.createElement("div");
   header.className = "lista-header";
@@ -27,6 +28,7 @@ export const ListaAsistentes = async () => {
       method: 'GET',
       token
     });
+    console.log("📦 Datos crudos recibidos:", preferidos)
     console.log("📋 Eventos recibidos:", preferidos);
     console.log("🔢 Número de eventos:", preferidos?.length);
 
@@ -44,6 +46,7 @@ export const ListaAsistentes = async () => {
     eventosContainer.className = "eventos-container";
 
     for (const evento of preferidos) {
+      console.log("🗂 Evento:", evento)
       const eventoCard = document.createElement("div");
       eventoCard.className = "evento-card";
 

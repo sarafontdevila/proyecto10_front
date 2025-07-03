@@ -78,7 +78,6 @@ export const pintarEventos = async (
       })
       divEvento.appendChild(eliminarBtn)
     }
-
     divEventos.appendChild(divEvento)
   }
 
