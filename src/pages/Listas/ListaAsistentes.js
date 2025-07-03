@@ -22,12 +22,13 @@ export const ListaAsistentes = async () => {
   main.append(header);
 
   try {
-    // Usar el endpoint específico para obtener MIS eventos
     const preferidos = await fetchData({
       url: `http://localhost:3000/api/v1/eventos/mis-eventos`,
       method: 'GET',
       token
     });
+    console.log("📋 Eventos recibidos:", preferidos);
+    console.log("🔢 Número de eventos:", preferidos?.length);
 
     if (!preferidos || preferidos.length === 0) {
       const noEventos = document.createElement("p");
@@ -36,6 +37,8 @@ export const ListaAsistentes = async () => {
       main.append(noEventos);
       return;
     }
+    const asistentes = preferidos[0].asistentes || [];
+    console.log("👥 Asistentes del primer evento:", preferidos[0].asistentes)
 
     const eventosContainer = document.createElement("div");
     eventosContainer.className = "eventos-container";
@@ -115,7 +118,9 @@ export const ListaAsistentes = async () => {
       userIcon.innerHTML = "👥";
 
       const asistentesTitle = document.createElement("h3");
-      const numAsistentes = evento.asistentes ? evento.asistentes.length : 0;
+      /*const numAsistentes = evento.asistentes ? evento.asistentes.length : 0;
+      asistentesTitle.textContent = `Asistentes (${numAsistentes})`*/
+      const numAsistentes = evento.asistentes?.length || 0;
       asistentesTitle.textContent = `Asistentes (${numAsistentes})`;
 
       asistentesHeader.append(userIcon, asistentesTitle);
@@ -128,6 +133,7 @@ export const ListaAsistentes = async () => {
         evento.asistentes.forEach(asistente => {
           const asistenteItem = document.createElement("span");
           asistenteItem.className = "asistente-item";
+          console.log("👤 Asistente:", asistente);
           asistenteItem.textContent = asistente.nombre || 'Usuario sin nombre';
           asistentesLista.append(asistenteItem);
         });
