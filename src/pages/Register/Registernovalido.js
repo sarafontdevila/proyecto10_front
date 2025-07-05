@@ -39,14 +39,14 @@ const createRegisterForm = (elementoPadre) => {
   statusMessage.style.marginTop = '10px'
   statusMessage.style.width = '100%'
 
-  // Crear <p> con <a> adentro ya centrado
+ 
   const loginLink = document.createElement('p')
   loginLink.style.textAlign = 'center'
   loginLink.style.marginTop = '15px'
   loginLink.style.width = '100%'
   loginLink.innerHTML = '¿Ya tienes cuenta? <a href="#/login">Inicia sesión aquí</a>'
 
-  // Agregar el evento al <a>
+
   const anchor = loginLink.querySelector('a')
   anchor.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -54,7 +54,7 @@ const createRegisterForm = (elementoPadre) => {
     module.Login()
   })
 
-  // Agregar elementos al formulario
+  
   form.append(inputName, inputEmail, inputPassword, button, statusMessage, loginLink)
   elementoPadre.appendChild(form)
 

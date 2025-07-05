@@ -1,6 +1,7 @@
 import { Header } from '../../components/Header/Header.js'
 import { Home } from '../Home/Home.js'
 import { fetchData } from '../../utils/api.js'
+import './Login.css'
 
 export const Login = () => {
   const main = document.querySelector('main')
@@ -46,7 +47,6 @@ const createLoginForm = (elementoPadre) => {
     module.Register()
   })
 
-  registerLink.innerHTML = '¿No tienes cuenta? '
   registerLink.appendChild(anchor)
 
   form.append(inputEmail, inputPassword, button, statusMessage, registerLink)

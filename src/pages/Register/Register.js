@@ -1,6 +1,8 @@
 import { Header } from '../../components/Header/Header.js'
 import { Home } from '../Home/Home.js'
 import { fetchData } from '../../utils/api.js'
+import './Register.css'
+
 
 
 export const Register = () => {
@@ -37,11 +39,6 @@ const createRegisterForm = (elementoPadre) => {
   statusMessage.classList.add('status-message')
   statusMessage.style.display = 'none'
 
-  /*const loginLink = document.createElement('p')
-  loginLink.style.textAlign = 'center'
-  loginLink.style.marginTop = '15px'
-  loginLink.style.width = '100%'*/
-
   
   const anchor = document.createElement('a')
   anchor.href = '#/login'
@@ -60,7 +57,6 @@ const createRegisterForm = (elementoPadre) => {
   loginLink.style.marginTop = '15px'
   loginLink.style.width = '100%'
 
-  loginLink.innerHTML = '¿Ya tienes cuenta? '
   loginLink.appendChild(anchor)
 
   form.append(inputName, inputEmail, inputPassword, button, statusMessage, loginLink)

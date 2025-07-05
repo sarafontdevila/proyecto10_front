@@ -2,9 +2,11 @@ import './ListaAsistentes.css';
 import { fetchData } from '../../utils/api';
 import { mostrarMensaje } from '../../components/Message/Message';
 
+
 export const ListaAsistentes = async () => {
   const main = document.querySelector("main");
   main.innerHTML = "";
+  main.textContent = "";
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -17,30 +19,21 @@ export const ListaAsistentes = async () => {
   icon.innerHTML = "👤";
 
   const title = document.createElement("h1");
-  title.textContent = "Mis Eventos - Lista de Asistentes";
+  title.textContent = "Eventos - Lista de Asistentes";
 
   header.append(icon, title);
   main.append(header);
 
   try {
     const preferidos = await fetchData({
-      url: `http://localhost:3000/api/v1/eventos/mis-eventos`,
+      url: `http://localhost:3000/api/v1/eventos`,
       method: 'GET',
       token
+      
     });
     console.log("📦 Datos crudos recibidos:", preferidos)
     console.log("📋 Eventos recibidos:", preferidos);
     console.log("🔢 Número de eventos:", preferidos?.length);
-
-    if (!preferidos || preferidos.length === 0) {
-      const noEventos = document.createElement("p");
-      noEventos.className = "no-eventos";
-      noEventos.textContent = "No estás inscrito en ningún evento.";
-      main.append(noEventos);
-      return;
-    }
-    const asistentes = preferidos[0].asistentes || [];
-    console.log("👥 Asistentes del primer evento:", preferidos[0].asistentes)
 
     const eventosContainer = document.createElement("div");
     eventosContainer.className = "eventos-container";
@@ -54,10 +47,8 @@ export const ListaAsistentes = async () => {
       const nombreEvento = document.createElement("h2");
       nombreEvento.textContent = evento.nombre;
 
-      
       const fechaContainer = document.createElement("div");
       fechaContainer.className = "fecha-container";
-
       const calendarIcon = document.createElement("span");
       calendarIcon.className = "calendar-icon";
       calendarIcon.innerHTML = "📅";
@@ -97,7 +88,6 @@ export const ListaAsistentes = async () => {
       
       creadorContainer.append(creadorIcon, creadorEvento);
 
-      
       const precioContainer = document.createElement("div");
       precioContainer.className = "precio-container";
       
@@ -121,8 +111,6 @@ export const ListaAsistentes = async () => {
       userIcon.innerHTML = "👥";
 
       const asistentesTitle = document.createElement("h3");
-      /*const numAsistentes = evento.asistentes ? evento.asistentes.length : 0;
-      asistentesTitle.textContent = `Asistentes (${numAsistentes})`*/
       const numAsistentes = evento.asistentes?.length || 0;
       asistentesTitle.textContent = `Asistentes (${numAsistentes})`;
 
@@ -132,14 +120,17 @@ export const ListaAsistentes = async () => {
       const asistentesLista = document.createElement("div");
       asistentesLista.className = "asistentes-lista";
 
-      if (evento.asistentes && evento.asistentes.length > 0) {
-        evento.asistentes.forEach(asistente => {
-          const asistenteItem = document.createElement("span");
-          asistenteItem.className = "asistente-item";
-          console.log("👤 Asistente:", asistente);
-          asistenteItem.textContent = asistente.nombre || 'Usuario sin nombre';
-          asistentesLista.append(asistenteItem);
-        });
+        if (evento.asistentes && evento.asistentes.length > 0) {
+          const nombresAsistentes = evento.asistentes
+            .map(asistente => asistente.nombre || 'Usuario sin nombre')
+            .join(', ');
+        
+          const asistentesTexto = document.createElement("p");
+          asistentesTexto.className = "asistentes-nombres";
+          asistentesTexto.textContent = nombresAsistentes;
+        
+          asistentesLista.append(asistentesTexto);
+         
       } else {
         const sinAsistentes = document.createElement("p");
         sinAsistentes.className = "sin-asistentes";
