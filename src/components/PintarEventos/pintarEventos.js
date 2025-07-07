@@ -86,14 +86,17 @@ export const pintarEventos = async (
 
 const asistirAEvento = async (eventoId, userId, token, boton) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/eventos/${eventoId}/asistentes`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ asistente: user_Id })
-    })
+    const response = await fetch(
+      `http://localhost:3000/api/v1/eventos/${eventoId}/asistentes`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ asistente: user_Id })
+      }
+    )
 
     if (response.ok) {
       mostrarMensaje('✅ Te has registrado como asistente')
@@ -128,7 +131,6 @@ const addPreferido = async (idEvento, callbackRecarga) => {
       mostrarMensaje('Debes iniciar sesión')
       return
     }
-
 
     if (user.preferidos.includes(idEvento)) {
       mostrarMensaje('Este evento ya está en tus preferidos')
@@ -169,7 +171,6 @@ const borrarPreferido = async (idEvento, callbackRecarga) => {
       return
     }
 
-    
     const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
 
     await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
@@ -183,7 +184,6 @@ const borrarPreferido = async (idEvento, callbackRecarga) => {
       })
     })
 
-  
     user.preferidos = nuevosPreferidos
     localStorage.setItem('user', JSON.stringify(user))
 
@@ -206,6 +206,6 @@ const recargarHome = async () => {
 }
 
 const recargarPreferidos = async () => {
-  const { Preferidos } = await import('../../pages/MisEventos/preferidos')
+  const { Preferidos } = await import('../../pages/Favoritos/preferidos')
   Preferidos()
 }

@@ -1,4 +1,4 @@
-import { fetchData } from './api'
+/*import { fetchData } from './api'
 
 export const pintarEventos = async (eventos, elementoPadre, esPreferidos = false) => {
   const divEventos = document.createElement("div")
@@ -97,4 +97,4 @@ const recargarHome = async () => {
 const recargarPreferidos = async () => {
   const { Preferidos } = await import('../pages/MisEventos/preferidos')
   Preferidos()
-}
+}*/
