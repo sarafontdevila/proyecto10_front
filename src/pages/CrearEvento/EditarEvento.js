@@ -1,17 +1,24 @@
 import './CrearEvento.css'
-import { fetchData } from '../../../utils/api'
-import { loading } from '../../../components/Loading/Loading'
+import { fetchData } from '../../utils/api'
+import { loading } from '../../components/Loading/Loading'
 import { CrearEvento } from './CrearEvento'
 
 export const editarEvento = async (eventoId) => {
+  if (!eventoId) {
+    console.error("ID de evento no válido:", eventoId)
+    alert("Error: ID de evento no válido")
+    return
+  }
   try {
     loading(true)
+    console.log("Intentando cargar evento con ID:", eventoId)
 
     const evento = await fetchData({
       url: `http://localhost:3000/api/v1/eventos/${eventoId}`,
       method: 'GET',
       token: localStorage.getItem('token')
     })
+    console.log("Evento cargado:", evento)
 
     if (!evento) {
       throw new Error('No se pudo cargar el evento')
@@ -47,6 +54,15 @@ export const editarEvento = async (eventoId) => {
   } catch (error) {
     console.error('Error al cargar evento para editar:', error)
     alert('Error al cargar los datos del evento')
+    if (error.message.includes("400")) {
+      alert("Error 400: Petición incorrecta. Verifica que el evento existe y tienes permisos.")
+    } else if (error.message.includes("401")) {
+      alert("Error de autenticación. Por favor, inicia sesión nuevamente.")
+    } else if (error.message.includes("404")) {
+      alert("Error 404: El evento no fue encontrado.")
+    } else {
+      alert(`Error al cargar los datos del evento: ${error.message}`)
+    }
   } finally {
     loading(false)
   }
