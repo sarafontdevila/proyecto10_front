@@ -1,6 +1,7 @@
 import { fetchData } from '../../utils/api'
 import { mostrarMensaje } from '../Message/Message'
 
+
 export const pintarEventos = async (
   eventos,
   elementoPadre,
@@ -110,7 +111,7 @@ const asistirAEvento = async (eventoId, userId, token, boton) => {
     mostrarMensaje('Error al intentar asistir al evento')
   }
 }
-const eliminarEvento = async (idEvento) => {
+/*const eliminarEvento = async (idEvento) => {
   try {
     await fetchData({
       url: `http://localhost:3000/api/v1/eventos/${idEvento}`,
@@ -121,7 +122,7 @@ const eliminarEvento = async (idEvento) => {
     console.error('Error eliminando evento:', error)
     throw error
   }
-}
+}*/
 const addPreferido = async (idEvento, callbackRecarga) => {
   try {
     const user = JSON.parse(localStorage.getItem('user'))

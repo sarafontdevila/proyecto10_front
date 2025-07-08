@@ -35,7 +35,7 @@ export const MisEventos = async (elementoPadre) => {
       eventosCount.textContent = `${response.length} evento${response.length !== 1 ? "s" : ""}`
 
       response.forEach((evento) => {
-        const eventoCard = crearEventoCard(evento)
+        const eventoCard = crearEventoCard(evento, elementoPadre)
         eventosGrid.append(eventoCard)
       })
     } else {
@@ -47,7 +47,7 @@ export const MisEventos = async (elementoPadre) => {
   }
 }
 
-const crearEventoCard = (evento) => {
+const crearEventoCard = (evento, elementoPadre) => {
   const card = document.createElement("div")
   card.className = "evento-card"
 
@@ -109,7 +109,7 @@ const crearEventoCard = (evento) => {
   const btnDelete = document.createElement("button")
   btnDelete.className = "btn-action btn-delete"
   btnDelete.textContent = "🗑️ Eliminar"
-  btnDelete.addEventListener("click", () => eliminarEvento(evento.id))
+  btnDelete.addEventListener("click", () => eliminarEvento(evento.id, elementoPadre))
 
   actions.append(btnEdit, btnDelete)
   stats.append(asistentesInfo, actions)
@@ -140,6 +140,10 @@ const editarEvento = (eventoId) => {
 }
 
 const eliminarEvento = async (eventoId, elementoPadre) => {
+  if (!eventoId) {
+    console.error("ID de evento no válido:", eventoId)
+    return
+  }
   if (confirm("¿Estás seguro de que quieres eliminar este evento?")) {
     try {
       loading(true)
@@ -147,9 +151,10 @@ const eliminarEvento = async (eventoId, elementoPadre) => {
         url: `http://localhost:3000/api/v1/eventos/${eventoId}`,
         method: "DELETE",
         token: localStorage.getItem("token"),
+        
       })
+      console.log("Evento eliminado:", res)
 
-      
       elementoPadre.innerHTML = ""
       await MisEventos(elementoPadre)
     } catch (error) {
