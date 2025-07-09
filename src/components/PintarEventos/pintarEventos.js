@@ -111,18 +111,7 @@ const asistirAEvento = async (eventoId, userId, token, boton) => {
     mostrarMensaje('Error al intentar asistir al evento')
   }
 }
-/*const eliminarEvento = async (idEvento) => {
-  try {
-    await fetchData({
-      url: `http://localhost:3000/api/v1/eventos/${idEvento}`,
-      method: 'DELETE',
-      token: localStorage.getItem('token')
-    })
-  } catch (error) {
-    console.error('Error eliminando evento:', error)
-    throw error
-  }
-}*/
+
 const addPreferido = async (idEvento, callbackRecarga) => {
   try {
     const user = JSON.parse(localStorage.getItem('user'))
