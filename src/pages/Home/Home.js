@@ -12,3 +12,5 @@ export const Home = async () => {
 
   pintarEventos(eventos, main, false)
 }
+
+

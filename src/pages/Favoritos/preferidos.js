@@ -10,11 +10,8 @@ export const Preferidos = async () => {
   const user = JSON.parse(localStorage.getItem('user'))
   const token = localStorage.getItem('token')
 
-  const idsPreferidos = user.preferidos || []
-  console.log('🎯 IDs de eventos preferidos desde localStorage:', idsPreferidos)
-
-  if (idsPreferidos.length === 0) {
-    mostrarMensaje( 'No tienes eventos preferidos')
+  if (!user || !token || !user.preferidos || user.preferidos.length === 0) {
+    mostrarMensaje('No tienes eventos preferidos.')
     return
   }
 
@@ -25,17 +22,14 @@ export const Preferidos = async () => {
     })
 
     const eventosPreferidos = todosLosEventos.filter(evento =>
-      idsPreferidos.includes(evento._id)
+      user.preferidos.includes(evento._id)
     )
 
-    if (eventosPreferidos.length > 0) {
-      pintarEventos(eventosPreferidos, main, true)
-    } else {
-      mostrarMensaje('No se encontraron tus eventos preferidos.')
-    }
+    pintarEventos(eventosPreferidos, main, true)
   } catch (error) {
     console.error('❌ Error al obtener eventos:', error)
     mostrarMensaje('Error al cargar tus eventos preferidos.')
   }
 }
+
 

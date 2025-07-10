@@ -1,5 +1,6 @@
+import { fetchData } from '../../utils/api'
 import { mostrarMensaje } from '../Message/Message'
-
+import { manejarAsistencia, borrarPreferidoYAsistencia } from '../Evento/asistirEvento' 
 
 export const pintarEventos = async (
   eventos,
@@ -9,6 +10,14 @@ export const pintarEventos = async (
   const divEventos = document.createElement('div')
   divEventos.className = 'eventos'
 
+  if (eventos.length === 0) {
+    mostrarMensaje(
+      esPreferidos
+        ? 'No tienes eventos preferidos.'
+        : 'No hay eventos disponibles en este momento.'
+    )
+    return
+  }
   const user = JSON.parse(localStorage.getItem('user'))
   const token = localStorage.getItem('token')
 
@@ -37,13 +46,13 @@ export const pintarEventos = async (
     if (esPreferidos) {
       asistir.textContent = 'Cancelar'
       asistir.addEventListener('click', () =>
-        borrarPreferido(evento._id, recargarPreferidos)
+        borrarPreferidoYAsistencia(evento._id, recargarPreferidos)
       )
     } else {
       if (token && user) {
         asistir.textContent = 'Asistir'
         asistir.addEventListener('click', () =>
-          addPreferido(evento._id, recargarHome)
+          manejarAsistencia(evento._id, asistir, recargarHome)
         )
       } else {
         asistir.textContent = 'Regístrate primero'
@@ -58,107 +67,6 @@ export const pintarEventos = async (
 
   elementoPadre.appendChild(divEventos)
 }
-
-const asistirAEvento = async (eventoId, userId, token, boton) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/v1/eventos/${eventoId}/asistentes`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ asistente: user_Id })
-      }
-    )
-
-    if (response.ok) {
-      mostrarMensaje('✅ Te has registrado como asistente')
-      boton.disabled = true
-      boton.textContent = 'Ya estás registrado'
-    } else {
-      mostrarMensaje('⚠️ Error al registrarte como asistente')
-    }
-  } catch (error) {
-    console.error('❌ Error al asistir:', error)
-    mostrarMensaje('Error al intentar asistir al evento')
-  }
-}
-
-const addPreferido = async (idEvento, callbackRecarga) => {
-  try {
-    const user = JSON.parse(localStorage.getItem('user'))
-    const token = localStorage.getItem('token')
-
-    if (!user || !token) {
-      mostrarMensaje('Debes iniciar sesión')
-      return
-    }
-
-    if (user.preferidos.includes(idEvento)) {
-      mostrarMensaje('Este evento ya está en tus preferidos')
-      return
-    }
-
-    const nuevosPreferidos = [...user.preferidos, idEvento]
-
-    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        preferidos: nuevosPreferidos
-      })
-    })
-
-    user.preferidos = nuevosPreferidos
-    localStorage.setItem('user', JSON.stringify(user))
-
-    mostrarMensaje('Evento añadido a tus preferidos')
-    callbackRecarga()
-  } catch (error) {
-    console.error('Error agregando preferido:', error)
-    mostrarMensaje('Error al agregar a preferidos')
-  }
-}
-
-const borrarPreferido = async (idEvento, callbackRecarga) => {
-  try {
-    const user = JSON.parse(localStorage.getItem('user'))
-    const token = localStorage.getItem('token')
-
-    if (!user || !token) {
-      mostrarMensaje('Debes iniciar sesión')
-      return
-    }
-
-    const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
-
-    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        preferidos: nuevosPreferidos
-      })
-    })
-
-    user.preferidos = nuevosPreferidos
-    localStorage.setItem('user', JSON.stringify(user))
-
-    mostrarMensaje('Evento eliminado de tus preferidos')
-    callbackRecarga()
-  } catch (error) {
-    console.error('Error borrando preferido:', error)
-    mostrarMensaje('Error al quitar de preferidos')
-  }
-}
-
 const irARegistro = async () => {
   const { Register } = await import('../../pages/Register/Register')
   Register()

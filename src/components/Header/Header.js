@@ -64,7 +64,7 @@ export const Header = () => {
     } else {
       if (
         !token &&
-        ['Crear Evento', 'Mis Eventos', 'Listas'].includes(route.texto)
+        ['Crear Evento', 'Preferidos', 'Listas'].includes(route.texto)
       ) {
         continue
       }
