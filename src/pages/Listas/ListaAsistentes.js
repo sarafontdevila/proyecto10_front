@@ -1,161 +1,128 @@
-import './ListaAsistentes.css';
-import { fetchData } from '../../utils/api';
-import { mostrarMensaje } from '../../components/Message/Message';
-
+import { obtenerEventosPreferidos } from "../../utils/eventUtils"
+import { borrarPreferidoYAsistencia } from "../../components/Evento/asistirEvento"
+import { mostrarConfirmacion } from "../../components/Message/Message"
+import "./ListaAsistentes.css"
 
 export const ListaAsistentes = async () => {
-  const main = document.querySelector("main");
-  main.innerHTML = "";
-  main.textContent = "";
+  const main = document.querySelector("main")
+  main.innerHTML = ""
 
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const header = document.createElement("div")
+  header.className = "lista-header"
 
-  const header = document.createElement("div");
-  header.className = "lista-header";
+  const icon = document.createElement("span")
+  icon.className = "user-icon"
+  icon.innerHTML = "👤"
 
-  const icon = document.createElement("span");
-  icon.className = "user-icon";
-  icon.innerHTML = "👤";
+  const title = document.createElement("h1")
+  title.textContent = "Mis Eventos - Lista de Asistentes"
 
-  const title = document.createElement("h1");
-  title.textContent = "Eventos - Lista de Asistentes";
+  header.append(icon, title)
+  main.append(header)
 
-  header.append(icon, title);
-  main.append(header);
+  const eventosAsistiendo = await obtenerEventosPreferidos()
 
-  try {
-    const preferidos = await fetchData({
-      url: `http://localhost:3000/api/v1/eventos`,
-      method: 'GET',
-      token
-      
-    });
-    console.log("📦 Datos crudos recibidos:", preferidos)
-    console.log("📋 Eventos recibidos:", preferidos);
-    console.log("🔢 Número de eventos:", preferidos?.length);
+  const eventosContainer = document.createElement("div")
+  eventosContainer.className = "eventos-container"
 
-    const eventosContainer = document.createElement("div");
-    eventosContainer.className = "eventos-container";
+  pintarEventosConAsistentes(eventosAsistiendo, eventosContainer)
 
-    for (const evento of preferidos) {
-      console.log("🗂 Evento:", evento)
-      const eventoCard = document.createElement("div");
-      eventoCard.className = "evento-card";
+  main.append(eventosContainer)
+}
 
-      
-      const nombreEvento = document.createElement("h2");
-      nombreEvento.textContent = evento.nombre;
+const pintarEventosConAsistentes = (eventos, container) => {
+  eventos.forEach((evento) => {
+    const eventoCard = document.createElement("div")
+    eventoCard.className = "evento-card"
 
-      const fechaContainer = document.createElement("div");
-      fechaContainer.className = "fecha-container";
-      const calendarIcon = document.createElement("span");
-      calendarIcon.className = "calendar-icon";
-      calendarIcon.innerHTML = "📅";
+    const nombreEvento = document.createElement("h2")
+    nombreEvento.textContent = evento.nombre
 
-      const fechaEvento = document.createElement("p");
-      fechaEvento.textContent = new Date(evento.fecha).toLocaleDateString('es-ES', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+    const fechaContainer = document.createElement("div")
+    fechaContainer.className = "fecha-container"
+    const calendarIcon = document.createElement("span")
+    calendarIcon.innerHTML = "📅"
+    const fechaEvento = document.createElement("p")
+    fechaEvento.textContent = new Date(evento.fecha).toLocaleDateString("es-ES", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    fechaContainer.append(calendarIcon, fechaEvento)
 
-      fechaContainer.append(calendarIcon, fechaEvento);
+    const lugarContainer = document.createElement("div")
+    lugarContainer.className = "lugar-container"
+    const locationIcon = document.createElement("span")
+    locationIcon.innerHTML = "📍"
+    const lugarEvento = document.createElement("p")
+    lugarEvento.textContent = evento.lugar
+    lugarContainer.append(locationIcon, lugarEvento)
 
-      
-      const lugarContainer = document.createElement("div");
-      lugarContainer.className = "lugar-container";
-      
-      const locationIcon = document.createElement("span");
-      locationIcon.innerHTML = "📍";
-      
-      const lugarEvento = document.createElement("p");
-      lugarEvento.textContent = evento.lugar;
-      
-      lugarContainer.append(locationIcon, lugarEvento);
+    const precioContainer = document.createElement("div")
+    precioContainer.className = "precio-container"
+    const precioIcon = document.createElement("span")
+    precioIcon.innerHTML = "💰"
+    const precioEvento = document.createElement("p")
+    precioEvento.textContent = evento.precio === 0 ? "Gratis" : `${evento.precio}€`
+    precioContainer.append(precioIcon, precioEvento)
 
-      
-      const creadorContainer = document.createElement("div");
-      creadorContainer.className = "creador-container";
-      
-      const creadorIcon = document.createElement("span");
-      creadorIcon.innerHTML = "👨‍💼";
-      
-      const creadorEvento = document.createElement("p");
-      creadorEvento.textContent = `Organizado por: ${evento.creadorId?.nombre || 'Organizador desconocido'}`;
-      
-      creadorContainer.append(creadorIcon, creadorEvento);
+    const asistentesContainer = document.createElement("div")
+    asistentesContainer.className = "asistentes-container"
 
-      const precioContainer = document.createElement("div");
-      precioContainer.className = "precio-container";
-      
-      const precioIcon = document.createElement("span");
-      precioIcon.innerHTML = "💰";
-      
-      const precioEvento = document.createElement("p");
-      precioEvento.textContent = evento.precio === 0 ? 'Gratis' : `${evento.precio}€`;
-      
-      precioContainer.append(precioIcon, precioEvento);
+    const asistentesHeader = document.createElement("div")
+    asistentesHeader.className = "asistentes-header"
+    const userIcon = document.createElement("span")
+    userIcon.innerHTML = "👥"
+    const asistentesTitle = document.createElement("h3")
+    const numAsistentes = evento.asistentes?.length || 0
+    asistentesTitle.textContent = `Asistentes (${numAsistentes})`
+    asistentesHeader.append(userIcon, asistentesTitle)
 
-      
-      const asistentesContainer = document.createElement("div");
-      asistentesContainer.className = "asistentes-container";
+    const asistentesLista = document.createElement("div")
+    asistentesLista.className = "asistentes-lista"
 
-      const asistentesHeader = document.createElement("div");
-      asistentesHeader.className = "asistentes-header";
-
-      const userIcon = document.createElement("span");
-      userIcon.className = "user-icon";
-      userIcon.innerHTML = "👥";
-
-      const asistentesTitle = document.createElement("h3");
-      const numAsistentes = evento.asistentes?.length || 0;
-      asistentesTitle.textContent = `Asistentes (${numAsistentes})`;
-
-      asistentesHeader.append(userIcon, asistentesTitle);
-
-    
-      const asistentesLista = document.createElement("div");
-      asistentesLista.className = "asistentes-lista";
-
-        if (evento.asistentes && evento.asistentes.length > 0) {
-          const nombresAsistentes = evento.asistentes
-            .map(asistente => asistente.nombre || 'Usuario sin nombre')
-            .join(', ');
-        
-          const asistentesTexto = document.createElement("p");
-          asistentesTexto.className = "asistentes-nombres";
-          asistentesTexto.textContent = nombresAsistentes;
-        
-          asistentesLista.append(asistentesTexto);
-         
-      } else {
-        const sinAsistentes = document.createElement("p");
-        sinAsistentes.className = "sin-asistentes";
-        sinAsistentes.textContent = "No hay otros asistentes registrados.";
-        asistentesLista.append(sinAsistentes);
-      }
-
-      asistentesContainer.append(asistentesHeader, asistentesLista);
-      
-      eventoCard.append(
-        nombreEvento, 
-        fechaContainer, 
-        lugarContainer, 
-        creadorContainer,
-        precioContainer,
-        asistentesContainer
-      );
-      
-      eventosContainer.append(eventoCard);
+    if (evento.asistentes && evento.asistentes.length > 0) {
+      const nombresAsistentes = evento.asistentes
+        .map((asistente) => asistente.nombre || "Usuario sin nombre")
+        .join(", ")
+      const asistentesTexto = document.createElement("p")
+      asistentesTexto.textContent = nombresAsistentes
+      asistentesLista.append(asistentesTexto)
+    } else {
+      const sinAsistentes = document.createElement("p")
+      sinAsistentes.className = "sin-asistentes"
+      sinAsistentes.textContent = "No hay otros asistentes registrados."
+      asistentesLista.append(sinAsistentes)
     }
 
-    main.append(eventosContainer);
+    asistentesContainer.append(asistentesHeader, asistentesLista)
 
-  } catch (error) {
-    console.error("Error al cargar mis eventos:", error);
-    mostrarMensaje("Error al cargar tus eventos. Por favor, inténtalo de nuevo más tarde.", "error");
-  }
-};
+    const accionesContainer = document.createElement("div")
+    accionesContainer.className = "acciones-container"
+
+    const botonSalir = document.createElement("button")
+    botonSalir.className = "boton-salir"
+    botonSalir.textContent = "❌ Dejar de asistir"
+    botonSalir.onclick = async () => {
+      const confirmacion = await mostrarConfirmacion(`¿Estás seguro de que quieres dejar de asistir a "${evento.nombre}"?`)
+      if (confirmacion) {
+        await borrarPreferidoYAsistencia(evento._id, ListaAsistentes)
+      }
+    }
+
+    accionesContainer.append(botonSalir)
+
+    eventoCard.append(
+      nombreEvento,
+      fechaContainer,
+      lugarContainer,
+      precioContainer,
+      asistentesContainer,
+      accionesContainer,
+    )
+
+    container.append(eventoCard)
+  })
+}

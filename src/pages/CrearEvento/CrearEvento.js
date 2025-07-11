@@ -2,6 +2,7 @@ import './CrearEvento.css'
 import { fetchData } from '../../utils/api'
 import { loading } from '../../components/Loading/Loading'
 import { MisEventos } from './MisEventos'
+import '../../components/StatusMessage/StatusMessage.css'
 
 export const CrearEvento = () => {
   const main = document.querySelector('main')
@@ -36,14 +37,12 @@ const Crear = (elementoPadre) => {
   const inputNombre = document.createElement('input')
   inputNombre.type = 'text'
   inputNombre.placeholder = 'Nombre del evento'
-  inputNombre.required = true
   grupoNombre.append(inputNombre)
 
   const grupoFecha = document.createElement('div')
   grupoFecha.className = 'form-group'
   const inputFecha = document.createElement('input')
   inputFecha.type = 'datetime-local'
-  inputFecha.required = true
   grupoFecha.append(inputFecha)
 
   const grupoDescripcion = document.createElement('div')
@@ -51,7 +50,6 @@ const Crear = (elementoPadre) => {
   const inputDescripcion = document.createElement('textarea')
   inputDescripcion.placeholder = 'Descripción'
   inputDescripcion.rows = 4
-  inputDescripcion.required = true
   grupoDescripcion.append(inputDescripcion)
 
   const grupoLugar = document.createElement('div')
@@ -59,7 +57,6 @@ const Crear = (elementoPadre) => {
   const inputLugar = document.createElement('input')
   inputLugar.type = 'text'
   inputLugar.placeholder = 'Lugar'
-  inputLugar.required = true
   grupoLugar.append(inputLugar)
 
   const grupoPrecio = document.createElement('div')
@@ -69,7 +66,6 @@ const Crear = (elementoPadre) => {
   inputPrecio.placeholder = 'Precio'
   inputPrecio.min = '0'
   inputPrecio.step = '0.01'
-  inputPrecio.required = true
   grupoPrecio.append(inputPrecio)
 
   const grupoImagen = document.createElement('div')
@@ -80,7 +76,6 @@ const Crear = (elementoPadre) => {
   inputImagen.type = 'file'
   inputImagen.id = 'file-input'
   inputImagen.accept = 'image/*'
-  inputImagen.required = true
   const labelImagen = document.createElement('label')
   labelImagen.htmlFor = 'file-input'
   labelImagen.className = 'file-input-label'
@@ -119,7 +114,11 @@ const Crear = (elementoPadre) => {
   elementoPadre.append(titulo, form)
 
   async function handleSubmit(event) {
-    event.preventDefault()
+  event.preventDefault()
+  statusMessage.textContent = ''
+  statusMessage.className = 'status-message'
+  statusMessage.style.display = 'none'
+   
     loading(true)
     button.disabled = true
 
@@ -135,6 +134,7 @@ const Crear = (elementoPadre) => {
         loading(false)
         button.disabled = false
         statusMessage.textContent = 'Por favor complete todos los campos'
+        statusMessage.className = 'status-message error'
         statusMessage.style.display = 'block'
       }, 500)
       return
@@ -157,8 +157,8 @@ const Crear = (elementoPadre) => {
       })
 
       statusMessage.textContent = 'Evento creado con éxito!'
+      statusMessage.className = 'status-message success'
       statusMessage.style.display = 'block'
-      statusMessage.style.color = '#4ade80'
       form.reset()
       labelImagen.textContent = '📷 Seleccionar imagen del evento'
 
@@ -167,8 +167,8 @@ const Crear = (elementoPadre) => {
       }, 1500)
     } catch (error) {
       statusMessage.textContent = 'Error al crear el evento.'
+      statusMessage.className = 'status-message error'
       statusMessage.style.display = 'block'
-      statusMessage.style.color = '#ef4444'
       console.error('Error:', error)
     } finally {
       loading(false)

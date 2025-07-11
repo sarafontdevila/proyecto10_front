@@ -208,14 +208,6 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.asistentes-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #4a90a4;
-  font-weight: 500;
-}
-
 .evento-actions {
   display: flex;
   gap: 0.5rem;
@@ -262,7 +254,7 @@
   opacity: 0.5;
 }
 
-.status-message {
+/*.status-message {
   color: #bb8218;
   font-size: 18px;
   margin-bottom: 20px;
@@ -272,7 +264,7 @@
   border-radius: 8px;
   background: rgba(187, 130, 24, 0.1);
   border: 1px solid rgba(187, 130, 24, 0.3);
-}
+}*/
 
 
 @media (max-width: 1024px) {

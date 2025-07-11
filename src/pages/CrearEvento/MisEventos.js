@@ -102,11 +102,6 @@ const crearEventoCard = (evento, elementoPadre) => {
   const stats = document.createElement("div")
   stats.className = "evento-stats"
 
-  const asistentesInfo = document.createElement("div")
-  asistentesInfo.className = "asistentes-info"
-  const asistentes = Array.isArray(evento.asistentes) ? evento.asistentes.length : 0
-  asistentesInfo.innerHTML = `<span>👥</span><span>${asistentes} asistente(s)</span>`
-
   const actions = document.createElement("div")
   actions.className = "evento-actions"
 
@@ -135,7 +130,7 @@ const crearEventoCard = (evento, elementoPadre) => {
   })
 
   actions.append(btnEdit, btnDelete)
-  stats.append(asistentesInfo, actions)
+  stats.append(actions)
   card.append(titulo, info, stats)
 
   return card

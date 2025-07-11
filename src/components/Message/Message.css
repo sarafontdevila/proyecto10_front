@@ -1,10 +1,11 @@
+
 .modal-fondo {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,13 +14,70 @@
 
 .modal-mensaje {
   background: white;
-  padding: 50px 30px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  padding: 50px 30px; 
+  border-radius: 10px; 
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3); 
   max-width: 90%;
   text-align: center;
-  font-weight: 600;
-  color: #bb8218;
+  font-weight: 600; 
+  color: #bb8218; 
   font-size: larger;
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.modal-mensaje p {
+  margin-bottom: 25px; 
+  font-size: 1em; 
+  color: inherit; 
+}
+
+.contenedor-botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin-top: 20px; 
+}
+
+.boton-confirmacion {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.boton-confirmacion:hover {
+  transform: translateY(-2px);
+}
+
+.boton-confirmacion:active {
+  transform: translateY(0);
+}
+
+.boton-confirmacion:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+.boton-confirmacion:not(.cancelar) { 
+  background-color: #5081e5;
+  color: white;
+}
+
+.boton-confirmacion:not(.cancelar):hover {
+  background-color: #0056b3;
+}
+
+.boton-confirmacion.cancelar { 
+  background-color: #dc3545;
+  color: white;
+}
+
+.boton-confirmacion.cancelar:hover {
+  background-color: #c82333;
+}
