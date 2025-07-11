@@ -57,7 +57,7 @@ export const Header = () => {
     if (route.texto === 'Login' && token) {
       a.textContent = 'Logout'
       a.addEventListener('click', () => {
-        localStorage.clear()
+        localStorage.removeItem('token')
         Header()
         Home()
       })
