@@ -14,7 +14,7 @@ const Main = () => {
 Main()
 checkAuth()
 Header()
-Home()
+
 
 
 
