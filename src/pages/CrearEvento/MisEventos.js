@@ -3,12 +3,12 @@ import { fetchData } from "../../utils/api"
 import { editarEvento } from "./EditarEvento"
 import { eliminarEvento } from "./EliminarEvento"
 
-export const MisEventos = async (elementoPadre) => {
+export const MisEventos = async (elementoPadre, modoAdmin = false) => {
   const header = document.createElement("div")
   header.className = "mis-eventos-header"
 
   const titulo = document.createElement("h2")
-  titulo.textContent = "🎭 Mis Eventos Creados"
+  titulo.textContent = "🎭 Eventos Creados"
 
   const eventosCount = document.createElement("div")
   eventosCount.className = "eventos-count"
@@ -19,11 +19,14 @@ export const MisEventos = async (elementoPadre) => {
   const eventosGrid = document.createElement("div")
   eventosGrid.className = "eventos-grid"
 
+  elementoPadre.innerHTML = ""
   elementoPadre.append(header, eventosGrid)
 
   try {
+
+    
     const response = await fetchData({
-      url: "http://localhost:3000/api/v1/eventos/mis-eventos",
+      url:"http://localhost:3000/api/v1/eventos/eventos-creados",
       method: "GET",
       token: localStorage.getItem("token"),
     })

@@ -23,7 +23,11 @@ body {
   text-align: center;
   background-color:black;
   transition: margin-top 0.3s ease;
+  min-height:100vh;
+  
 }
+
+
 
 a {
   font-weight: bold;
@@ -56,18 +60,4 @@ h2 {
   background-color: #bb8218;
   color: #333333;
 }
-/*.status-message {
-  text-align: center;
-  margin-top: 10px;
-  color: white
-  }
-.status-message.error { 
-  background-color: #fdd;
-  color: white;
-  border: 1px solid #d00;
-}
-.status-message.success { 
-  background-color: #dfd;
-  color: #0d0;
-  border: 1px solid #0d0;
-}*/
+

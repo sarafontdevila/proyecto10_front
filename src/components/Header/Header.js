@@ -36,6 +36,13 @@ const routes = [
 export const Header = () => {
   const header = document.querySelector('header')
   header.innerHTML = ''
+
+  const logoImg = document.createElement('img');
+  logoImg.src = '../../public/assets/logoHeader.png'; 
+  logoImg.alt = 'Logo';
+  logoImg.classList.add('header-logo'); 
+  header.appendChild(logoImg);
+  
   const nav = document.createElement('nav')
   nav.classList.add('nav-links')
 

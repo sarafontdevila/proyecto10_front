@@ -1,3 +1,4 @@
+import { fetchData } from "../../utils/api"
 import { obtenerEventosPreferidos } from "../../utils/eventUtils"
 import { borrarPreferidoYAsistencia } from "../../components/Evento/asistirEvento"
 import { mostrarConfirmacion } from "../../components/Message/Message"
@@ -15,12 +16,27 @@ export const ListaAsistentes = async () => {
   icon.innerHTML = "👤"
 
   const title = document.createElement("h1")
-  title.textContent = "Mis Eventos - Lista de Asistentes"
+  title.textContent = "Mis Preferidos - Lista de Asistentes"
 
   header.append(icon, title)
   main.append(header)
 
-  const eventosAsistiendo = await obtenerEventosPreferidos()
+  /*const eventosAsistiendo = await obtenerEventosPreferidos()*/
+  const user = JSON.parse(localStorage.getItem("user"))
+  const token = localStorage.getItem("token")
+
+  let eventosAsistiendo = []
+
+  if (user?.rol === "admin") {
+    
+    eventosAsistiendo = await fetchData({
+      url: "http://localhost:3000/api/v1/eventos",
+      method: "GET",
+      token,
+    })
+  } else {
+    eventosAsistiendo = await obtenerEventosPreferidos()
+  }
 
   const eventosContainer = document.createElement("div")
   eventosContainer.className = "eventos-container"
@@ -67,6 +83,18 @@ const pintarEventosConAsistentes = (eventos, container) => {
     const precioEvento = document.createElement("p")
     precioEvento.textContent = evento.precio === 0 ? "Gratis" : `${evento.precio}€`
     precioContainer.append(precioIcon, precioEvento)
+
+    const creadorContainer = document.createElement("div");
+    creadorContainer.className = "creador-container";
+
+    const creadorIcon = document.createElement("span"); 
+    creadorIcon.className = "creador-icon";
+    creadorIcon.innerHTML = "✍️"; 
+
+    const creadorText = document.createElement("p"); 
+    creadorText.textContent = `Creado por: ${evento.creadorId?.nombre || "Desconocido"}`;
+
+    creadorContainer.append(creadorIcon, creadorText);
 
     const asistentesContainer = document.createElement("div")
     asistentesContainer.className = "asistentes-container"
@@ -119,6 +147,7 @@ const pintarEventosConAsistentes = (eventos, container) => {
       fechaContainer,
       lugarContainer,
       precioContainer,
+      creadorContainer,
       asistentesContainer,
       accionesContainer,
     )
