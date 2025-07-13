@@ -256,32 +256,248 @@
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .container {
+    max-width: 95%;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1080px) {
   .container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    padding: 1rem;
+    gap: 1.5rem;
+    margin-top: 8rem; 
+  }
+
+  .crear-evento-section,
+  .mis-eventos-section {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .crear-evento-section h2,
+  .mis-eventos-header h2 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .btn-crear {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+
+  .file-input-label {
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .evento-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .evento-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .evento-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .evento-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .crear-evento-section,
+  .mis-eventos-section {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .crear-evento-section h2,
+  .mis-eventos-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; 
+    padding: 10px 14px;
+  }
+
+  .file-input-label {
+    font-size: 14px; 
+    padding: 12px 14px;
+    white-space: normal; 
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .btn-crear {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .evento-card {
+    padding: 1rem;
+  }
+
+  .evento-title {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    word-wrap: break-word;
+  }
+
+  .evento-detail {
+    font-size: 0.85rem;
+    word-wrap: break-word;
   }
 
   .mis-eventos-section {
-    max-height: 60vh;
+    max-height: 70vh;
+  }
+
+  .mis-eventos-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .crear-evento-section,
+  .mis-eventos-section {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .crear-evento-section h2,
+  .mis-eventos-header h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px;
+    padding: 10px 14px;
+    min-height: 44px; 
+  }
+
+  .file-input-label {
+    font-size: 14px;
+    padding: 12px 14px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .btn-crear {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 48px;
+  }
+
+  .evento-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .evento-title {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .evento-info {
+    gap: 0.8rem;
+  }
+
+  .evento-detail {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .evento-stats {
+    gap: 0.8rem;
+  }
+
+  .btn-action {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    min-height: 32px;
+  }
+
+  .eventos-count {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .mis-eventos-section {
+    max-height: 65vh;
+  }
+
+  .mis-eventos-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }
 
 
-.mis-eventos-section::-webkit-scrollbar {
-  width: 8px;
-}
+@media (min-width: 1081px) {
+  .mis-eventos-section::-webkit-scrollbar {
+    width: 8px;
+  }
 
-.mis-eventos-section::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
+  .mis-eventos-section::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
 
-.mis-eventos-section::-webkit-scrollbar-thumb {
-  background: rgba(187, 130, 24, 0.5);
-  border-radius: 4px;
-}
+  .mis-eventos-section::-webkit-scrollbar-thumb {
+    background: rgba(187, 130, 24, 0.5);
+    border-radius: 4px;
+  }
 
-.mis-eventos-section::-webkit-scrollbar-thumb:hover {
-  background: rgba(187, 130, 24, 0.7);
+  .mis-eventos-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(187, 130, 24, 0.7);
+  }
 }

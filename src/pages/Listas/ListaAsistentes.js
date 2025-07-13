@@ -1,7 +1,7 @@
 import { fetchData } from "../../utils/api"
 import { obtenerEventosPreferidos } from "../../utils/eventUtils"
 import { borrarPreferidoYAsistencia } from "../../components/Evento/asistirEvento"
-import { mostrarConfirmacion } from "../../components/Message/Message"
+import { mostrarConfirmacion, mostrarMensaje } from "../../components/Message/Message"
 import "./ListaAsistentes.css"
 
 export const ListaAsistentes = async () => {
@@ -16,7 +16,7 @@ export const ListaAsistentes = async () => {
   icon.innerHTML = "👤"
 
   const title = document.createElement("h1")
-  title.textContent = "Mis Preferidos - Lista de Asistentes"
+  title.textContent = "Lista de Asistentes "
 
   header.append(icon, title)
   main.append(header)
@@ -36,6 +36,11 @@ export const ListaAsistentes = async () => {
     })
   } else {
     eventosAsistiendo = await obtenerEventosPreferidos()
+  }
+
+  if (eventosAsistiendo.length === 0) {
+    mostrarMensaje("No tienes eventos preferidos ")
+    return
   }
 
   const eventosContainer = document.createElement("div")

@@ -63,7 +63,7 @@ nav {
 }
 
 
-@media (max-width: 1030px) {
+@media (max-width: 1080px) {
   body {
     padding-top: 0;
   }
@@ -115,3 +115,5 @@ nav {
     width: 100%;
   }
 }
+
+
