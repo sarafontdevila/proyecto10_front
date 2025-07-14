@@ -19,17 +19,6 @@ export const fetchData = async ({ url, method = 'GET', body = null, token = null
     opciones.body = body instanceof FormData ? body : JSON.stringify(body)
   }
 
-  /*try {
-    const response = await fetch(url, opciones)
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`)
-    }
-    return await response.json()
-  } catch (error) {
-    console.error('fetchData error:', error.message)
-    throw error
-  }
-}*/
 try {
   const response = await fetch(url, opciones)
   const data = await response.json()

@@ -10,7 +10,6 @@
 .auth-form {
   width: 100%;
   max-width: 420px;
-  /*background: rgba(255, 255, 255, 0.05);*/
   background: rgb(49, 47, 31);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -251,7 +250,7 @@
   text-decoration: underline;
 }
 
-/* Tablets y pantallas medianas */
+
 @media (max-width: 768px) {
   .auth-form-container {
     padding: 1.5rem;
@@ -276,10 +275,15 @@
 
   .auth-form p {
     font-size: 0.9rem;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
   }
 }
 
-/* Móviles grandes */
+
 @media (max-width: 640px) {
   .auth-form-container {
     padding: 1.2rem;
@@ -304,15 +308,20 @@
 
   .auth-form p {
     font-size: 0.88rem;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
   }
 }
 
-/* Móviles pequeños */
+
 @media (max-width: 480px) {
   .auth-form-container {
     padding: 1rem;
     min-height: 100vh;
-    padding-top: 80px; /* Espacio para el header */
+    padding-top: 80px; 
   }
 
   .auth-form {
@@ -338,11 +347,11 @@
   }
 }
 
-/* Móviles muy pequeños */
+
 @media (max-width: 360px) {
   .auth-form-container {
     padding: 0.8rem;
-    padding-top: 80px; /* Espacio para el header */
+    padding-top: 80px; 
   }
 
   .auth-form {
@@ -364,6 +373,11 @@
 
   .auth-form p {
     font-size: 0.78rem;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
   }
 }
 

@@ -21,7 +21,6 @@ export const ListaAsistentes = async () => {
   header.append(icon, title)
   main.append(header)
 
-  /*const eventosAsistiendo = await obtenerEventosPreferidos()*/
   const user = JSON.parse(localStorage.getItem("user"))
   const token = localStorage.getItem("token")
 
