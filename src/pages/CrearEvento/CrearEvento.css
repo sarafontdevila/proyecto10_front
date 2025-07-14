@@ -269,12 +269,20 @@
     padding: 1rem;
     gap: 1.5rem;
     margin-top: 8rem; 
+    justify-items: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .crear-evento-section,
   .mis-eventos-section {
     padding: 1.5rem;
     border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 
   .crear-evento-section h2,
@@ -327,12 +335,20 @@
   .container {
     padding: 0.5rem;
     gap: 1rem;
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .crear-evento-section,
   .mis-eventos-section {
     padding: 1rem;
     border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
   .crear-evento-section h2,
@@ -394,12 +410,22 @@
   .container {
     padding: 0.5rem;
     gap: 1rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 5rem);
+
   }
 
   .crear-evento-section,
   .mis-eventos-section {
     padding: 1rem;
     margin: 0;
+    width: 100%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .crear-evento-section h2,

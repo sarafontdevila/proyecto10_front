@@ -79,13 +79,13 @@ const Crear = (elementoPadre) => {
   const labelImagen = document.createElement('label')
   labelImagen.htmlFor = 'file-input'
   labelImagen.className = 'file-input-label'
-  labelImagen.textContent = '📷 Seleccionar imagen del evento'
+  labelImagen.textContent = '📷 Seleccionar imagen'
 
   inputImagen.addEventListener('change', (e) => {
     if (e.target.files[0]) {
       labelImagen.textContent = `📷 ${e.target.files[0].name}`
     } else {
-      labelImagen.textContent = '📷 Seleccionar imagen del evento'
+      labelImagen.textContent = '📷 Seleccionar imagen'
     }
   })
 
@@ -160,7 +160,7 @@ const Crear = (elementoPadre) => {
       statusMessage.className = 'status-message success'
       statusMessage.style.display = 'block'
       form.reset()
-      labelImagen.textContent = '📷 Seleccionar imagen del evento'
+      labelImagen.textContent = '📷 Seleccionar imagen'
 
       setTimeout(() => {
         CrearEvento()
