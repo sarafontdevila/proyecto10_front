@@ -43,8 +43,8 @@ POST	/auth/login	Iniciar sesión	{ "email": "", "password": "" }
 👤 Endpoints de Usuario
 Método	Endpoint	Descripción	Body requerido	Autenticación
 
-POST	/users/register	Registrar un nuevo usuario	{ "nombre": "", "email": "", "password": "", ... }	No
-POST	/users/login	Iniciar sesión del usuario	{ "nombre": "","password": "" }	No
+POST	/users/register	Registrar un nuevo usuario	{ "nombre": "", "email": "", "password": "", ... }	
+POST	/users/login	Iniciar sesión del usuario	{ "email": "","password": "" }	
 
 📁 Endpoints de Eventos
 
