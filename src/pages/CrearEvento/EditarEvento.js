@@ -2,6 +2,8 @@ import './CrearEvento.css'
 import { fetchData } from '../../utils/api'
 import { loading } from '../../components/Loading/Loading'
 import { CrearEvento } from './CrearEvento'
+import '../../components/StatusMessage/StatusMessage.css'
+
 
 export const editarEvento = async (eventoId) => {
   if (!eventoId) {
@@ -50,16 +52,6 @@ export const editarEvento = async (eventoId) => {
     nuevoForm.addEventListener('submit', (e) => handleEditSubmit(e, eventoId))
   } catch (error) {
     console.error('Error al cargar evento para editar:', error)
-
-    alert(
-      error.message.includes("400")
-        ? "Error 400: Petición incorrecta. Verifica que el evento existe y tienes permisos."
-        : error.message.includes("401")
-        ? "Error de autenticación. Por favor, inicia sesión nuevamente."
-        : error.message.includes("404")
-        ? "Error 404: El evento no fue encontrado."
-        : `Error al cargar los datos del evento: ${error.message}`
-    )
   } finally {
     loading(false)
   }
@@ -85,7 +77,9 @@ async function handleEditSubmit(event, eventoId) {
     setTimeout(() => {
       loading(false)
       button.disabled = false
-      mostrarMensaje(statusMessage, 'Por favor complete todos los campos', '#ef4444')
+      statusMessage.textContent = 'Por favor complete todos los campos'
+      statusMessage.className = 'status-message error'
+      statusMessage.style.display = 'block'
     }, 500)
     return
   }
@@ -110,22 +104,20 @@ async function handleEditSubmit(event, eventoId) {
       token: localStorage.getItem('token')
     })
 
-    mostrarMensaje(statusMessage, '¡Evento actualizado con éxito!', '#4ade80')
+    statusMessage.textContent = '¡Evento actualizado con éxito!'
+    statusMessage.className = 'status-message success'
+    statusMessage.style.display = 'block'
 
     setTimeout(() => {
       CrearEvento()
     }, 1500)
   } catch (error) {
     console.error('Error:', error)
-    mostrarMensaje(statusMessage, 'Error al actualizar el evento.', '#ef4444')
+    statusMessage.textContent = 'Error al actualizar el evento.'
+    statusMessage.className = 'status-message error'
+    statusMessage.style.display = 'block'
   } finally {
     loading(false)
     button.disabled = false
   }
-}
-
-function mostrarMensaje(elemento, mensaje, color) {
-  elemento.textContent = mensaje
-  elemento.style.display = 'block'
-  elemento.style.color = color
 }
