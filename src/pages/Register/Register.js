@@ -24,17 +24,14 @@ const createRegisterForm = (parentElement) => {
   const inputName = document.createElement('input')
   inputName.type = 'text'
   inputName.placeholder = 'Nombre'
-  
 
   const inputEmail = document.createElement('input')
   inputEmail.type = 'email'
   inputEmail.placeholder = 'Email'
-  
 
   const inputPassword = document.createElement('input')
   inputPassword.type = 'password'
   inputPassword.placeholder = 'Contraseña'
- 
 
   const statusMessage = document.createElement('div')
   statusMessage.classList.add('status-message')
@@ -54,35 +51,46 @@ const createRegisterForm = (parentElement) => {
     module.Login()
   })
 
-  form.append(title, inputName, inputEmail, inputPassword, statusMessage, button, loginLink)
+  form.append(
+    title,
+    inputName,
+    inputEmail,
+    inputPassword,
+    statusMessage,
+    button,
+    loginLink
+  )
   parentElement.appendChild(form)
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
-    handleRegister(inputName.value, inputEmail.value, inputPassword.value, statusMessage)
+    handleRegister(
+      inputName.value,
+      inputEmail.value,
+      inputPassword.value,
+      statusMessage
+    )
   })
 }
 
 const handleRegister = async (nombre, email, password, statusMessage) => {
- 
-    statusMessage.style.display = 'none'
+  statusMessage.style.display = 'none'
 
-    if (!nombre || !email || !password) {
-      statusMessage.textContent = 'Por favor, rellena todos los campos'
-      statusMessage.className = 'status-message error'
-      statusMessage.style.display = 'block'
-      return
-    }
+  if (!nombre || !email || !password) {
+    statusMessage.textContent = 'Por favor, rellena todos los campos'
+    statusMessage.className = 'status-message error'
+    statusMessage.style.display = 'block'
+    return
+  }
 
-    try {
-      
-      const newUser = { nombre, email, password }
-  
-      const userData_res = await fetchData({
-        url: 'http://localhost:3000/api/v1/users/register',
-        method: 'POST',
-        body: newUser
-      })
+  try {
+    const newUser = { nombre, email, password }
+
+    const userData_res = await fetchData({
+      url: 'https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/users/register',
+      method: 'POST',
+      body: newUser
+    })
 
     localStorage.setItem('token', userData_res.token)
     localStorage.setItem('user', JSON.stringify(userData_res.user))
@@ -97,9 +105,9 @@ const handleRegister = async (nombre, email, password, statusMessage) => {
     }, 1000)
   } catch (error) {
     console.error('Error en registro:', error)
-    statusMessage.textContent = error.message || 'Ocurrió un error en el registro'
+    statusMessage.textContent =
+      error.message || 'Ocurrió un error en el registro'
     statusMessage.className = 'status-message error'
     statusMessage.style.display = 'block'
   }
 }
-

@@ -12,7 +12,7 @@ export const manejarAsistencia = async (idEvento) => {
   try {
     const nuevosPreferidos = [...user.preferidos, idEvento]
 
-    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
+    await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/users/${user._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const manejarAsistencia = async (idEvento) => {
     user.preferidos = nuevosPreferidos
     localStorage.setItem("user", JSON.stringify(user))
 
-    const respuestaAsistencia = await fetch(`http://localhost:3000/api/v1/eventos/${idEvento}/asistentes`, {
+    const respuestaAsistencia = await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${idEvento}/asistentes`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
 
     const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
 
-    await fetch(`http://localhost:3000/api/v1/users/${user._id}`, {
+    await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/users/${user._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
       body: JSON.stringify({ preferidos: nuevosPreferidos }),
     })
 
-    await fetch(`http://localhost:3000/api/v1/eventos/${idEvento}/asistentes`, {
+    await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${idEvento}/asistentes`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

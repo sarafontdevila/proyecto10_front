@@ -4,20 +4,19 @@ import { loading } from '../../components/Loading/Loading'
 import { CrearEvento } from './CrearEvento'
 import '../../components/StatusMessage/StatusMessage.css'
 
-
 export const editarEvento = async (eventoId) => {
   if (!eventoId) {
-    console.error("ID de evento no válido:", eventoId)
-    alert("Error: ID de evento no válido")
+    console.error('ID de evento no válido:', eventoId)
+    alert('Error: ID de evento no válido')
     return
   }
 
   try {
     loading(true)
-    console.log("Intentando cargar evento con ID:", eventoId)
+    console.log('Intentando cargar evento con ID:', eventoId)
 
     const evento = await fetchData({
-      url: `http://localhost:3000/api/v1/eventos/${eventoId}`,
+      url: `https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${eventoId}`,
       method: 'GET',
       token: localStorage.getItem('token')
     })
@@ -26,7 +25,7 @@ export const editarEvento = async (eventoId) => {
       throw new Error('No se pudo cargar el evento')
     }
 
-    console.log("Evento cargado:", evento)
+    console.log('Evento cargado:', evento)
 
     const titulo = document.querySelector('.crear-evento-section h2')
     titulo.textContent = '✏️ Editar Evento'
@@ -35,7 +34,9 @@ export const editarEvento = async (eventoId) => {
     const inputs = form.querySelectorAll('input, textarea')
 
     inputs[0].value = evento.nombre || ''
-    inputs[1].value = evento.fecha ? new Date(evento.fecha).toISOString().slice(0, 16) : ''
+    inputs[1].value = evento.fecha
+      ? new Date(evento.fecha).toISOString().slice(0, 16)
+      : ''
     inputs[2].value = evento.descripcion || ''
     inputs[3].value = evento.lugar || ''
     inputs[4].value = evento.precio || ''
@@ -63,7 +64,8 @@ async function handleEditSubmit(event, eventoId) {
 
   const form = event.target
   const button = form.querySelector('.btn-crear')
-  const statusMessage = form.querySelector('.status-message') || document.createElement('p')
+  const statusMessage =
+    form.querySelector('.status-message') || document.createElement('p')
   statusMessage.className = 'status-message'
 
   if (!form.contains(statusMessage)) form.appendChild(statusMessage)
@@ -73,7 +75,11 @@ async function handleEditSubmit(event, eventoId) {
 
   button.disabled = true
 
-  if (![nombre, fecha, descripcion, lugar, precio].every(input => input.value.trim() !== '')) {
+  if (
+    ![nombre, fecha, descripcion, lugar, precio].every(
+      (input) => input.value.trim() !== ''
+    )
+  ) {
     setTimeout(() => {
       loading(false)
       button.disabled = false
@@ -98,7 +104,7 @@ async function handleEditSubmit(event, eventoId) {
 
   try {
     await fetchData({
-      url: `http://localhost:3000/api/v1/eventos/${eventoId}`,
+      url: `https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${eventoId}`,
       method: 'PUT',
       body: formData,
       token: localStorage.getItem('token')

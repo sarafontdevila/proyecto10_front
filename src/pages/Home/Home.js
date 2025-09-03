@@ -7,10 +7,8 @@ export const Home = async () => {
   main.innerHTML = ''
 
   const eventos = await fetchData({
-    url: 'http://localhost:3000/api/v1/eventos'
+    url: 'https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos'
   })
 
   pintarEventos(eventos, main, false)
 }
-
-
