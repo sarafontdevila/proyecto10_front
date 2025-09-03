@@ -38,7 +38,7 @@ export const Header = () => {
   header.innerHTML = ''
 
   const logoImg = document.createElement('img');
-  logoImg.src = '../../public/assets/logoHeader.png'; 
+  logoImg.src = '/assets/logoHeader.png'; 
   logoImg.alt = 'Logo';
   logoImg.classList.add('header-logo'); 
   header.appendChild(logoImg);
