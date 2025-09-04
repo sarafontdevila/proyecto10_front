@@ -53,6 +53,16 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
       mostrarMensaje("Debes iniciar sesión")
       return
     }
+    const eventoExiste = await verificarExistenciaEvento(idEvento, token)
+    
+    if (!eventoExiste) {
+      console.log(`⚠️ El evento ${idEvento} ya no existe, solo limpiando preferidos locales`)
+      const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
+      user.preferidos = nuevosPreferidos
+      localStorage.setItem("user", JSON.stringify(user))
+      mostrarMensaje("❌ Evento eliminado de tus preferidos (evento ya no disponible)")
+      return
+    }
 
     const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
 
@@ -82,5 +92,31 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
   } catch (error) {
     console.error("Error al quitar de preferidos y asistencia:", error)
     mostrarMensaje("Error al eliminar evento de tus datos")
+
+    try {
+      const user = JSON.parse(localStorage.getItem("user"))
+      if (user) {
+        const nuevosPreferidos = user.preferidos.filter((id) => id !== idEvento)
+        user.preferidos = nuevosPreferidos
+        localStorage.setItem("user", JSON.stringify(user))
+        mostrarMensaje("❌ Evento eliminado de preferidos (con errores en el servidor)")
+      }
+    } catch (localError) {
+      mostrarMensaje("Error al eliminar evento de tus datos")
+    }
   }
-}
+  }
+  const verificarExistenciaEvento = async (idEvento, token) => {
+    try {
+      const respuesta = await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${idEvento}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      })
+      return respuesta.ok
+    } catch (error) {
+      console.error("Error al verificar existencia del evento:", error)
+      return false
+    }
+  }

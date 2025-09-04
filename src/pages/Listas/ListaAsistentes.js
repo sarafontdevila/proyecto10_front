@@ -150,7 +150,8 @@ const pintarEventosConAsistentes = (eventos, container) => {
         `¿Estás seguro de que quieres dejar de asistir a "${evento.nombre}"?`
       )
       if (confirmacion) {
-        await borrarPreferidoYAsistencia(evento._id, ListaAsistentes)
+        await borrarPreferidoYAsistencia(evento._id)
+        await ListaAsistentes()
       }
     }
 
