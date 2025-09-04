@@ -21,6 +21,14 @@ export const eliminarEvento = async (eventoId, elementoPadre) => {
       })
       console.log('Evento eliminado correctamente')
 
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (user && user.preferidos) {
+        const nuevosPreferidos = user.preferidos.filter(id => id !== eventoId)
+        user.preferidos = nuevosPreferidos
+        localStorage.setItem('user', JSON.stringify(user))
+        console.log('Evento removido de preferidos del usuario')
+      }
+
       elementoPadre.innerHTML = ''
       await MisEventos(elementoPadre)
     } catch (error) {
