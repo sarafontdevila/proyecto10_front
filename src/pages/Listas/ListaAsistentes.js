@@ -31,7 +31,7 @@ export const ListaAsistentes = async () => {
 
   if (user?.rol === 'admin') {
     eventosAsistiendo = await fetchData({
-      url: 'https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos',
+      url: 'https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/',
       method: 'GET',
       token
     })
@@ -142,7 +142,7 @@ const pintarEventosConAsistentes = (eventos, container) => {
     const accionesContainer = document.createElement('div')
     accionesContainer.className = 'acciones-container'
 
-    const botonSalir = document.createElement('button')
+    /*const botonSalir = document.createElement('button')
     botonSalir.className = 'boton-salir'
     botonSalir.textContent = '❌ Dejar de asistir'
     botonSalir.onclick = async () => {
@@ -155,7 +155,7 @@ const pintarEventosConAsistentes = (eventos, container) => {
       }
     }
 
-    accionesContainer.append(botonSalir)
+    accionesContainer.append(botonSalir)*/
 
     eventoCard.append(
       nombreEvento,

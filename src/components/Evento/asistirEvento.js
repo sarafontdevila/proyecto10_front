@@ -81,7 +81,7 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      /*body: JSON.stringify({ asistente: user._id }),*/
+      body: JSON.stringify({ asistente: user._id })
     })
 
     user.preferidos = nuevosPreferidos
