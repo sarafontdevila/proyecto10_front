@@ -133,7 +133,7 @@ const pintarEventosConAsistentes = (eventos, container) => {
     } else {
       const sinAsistentes = document.createElement('p')
       sinAsistentes.className = 'sin-asistentes'
-      sinAsistentes.textContent = 'No hay otros asistentes registrados.'
+      sinAsistentes.textContent = 'No hay asistentes registrados.'
       asistentesLista.append(sinAsistentes)
     }
 
@@ -141,21 +141,6 @@ const pintarEventosConAsistentes = (eventos, container) => {
 
     const accionesContainer = document.createElement('div')
     accionesContainer.className = 'acciones-container'
-
-    /*const botonSalir = document.createElement('button')
-    botonSalir.className = 'boton-salir'
-    botonSalir.textContent = '❌ Dejar de asistir'
-    botonSalir.onclick = async () => {
-      const confirmacion = await mostrarConfirmacion(
-        `¿Estás seguro de que quieres dejar de asistir a "${evento.nombre}"?`
-      )
-      if (confirmacion) {
-        await borrarPreferidoYAsistencia(evento._id)
-        await ListaAsistentes()
-      }
-    }
-
-    accionesContainer.append(botonSalir)*/
 
     eventoCard.append(
       nombreEvento,

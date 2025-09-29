@@ -75,13 +75,13 @@ export const borrarPreferidoYAsistencia = async (idEvento) => {
       body: JSON.stringify({ preferidos: nuevosPreferidos }),
     })
 
-    await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${idEvento}/asistentes`, {
+    await fetch(`https://proyecto10-full-stack-js-gwfa.vercel.app/api/v1/eventos/${idEvento}/asistentes/${user._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ asistente: user._id })
+      /*body: JSON.stringify({ asistente: user._id })*/
     })
 
     user.preferidos = nuevosPreferidos
